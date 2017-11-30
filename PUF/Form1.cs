@@ -51,6 +51,7 @@ namespace PUF
             dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Enabled = false;
+            txtInput.Text = bitTh.ToString();
 
             for (int i = 0; i < bitArray.Length; i++)
                 bitArray[i] = new int[1024];
@@ -154,6 +155,18 @@ namespace PUF
             serialPort1.Write("o");
             serialPort1.Write("r");
         }
+
+        private void txtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                bitTh = int.Parse(txtInput.Text);
+                zeroCount = 0;
+                oneCount = 0;
+                displayMapArray();
+            }
+        }
+
         private void DoReceive()
         {
             string temp = "";
@@ -195,6 +208,13 @@ namespace PUF
                                 bitArray[3][i - 1] = numbers[3];
                             }
                             //Console.WriteLine(pCount);
+                            for (int i = 0; i < bitArray.Length; i++)
+                            {
+                                for (int j = 0; j < bitArray[i].Length; j++)
+                                {
+                                    pTotal[i][bitArray[i][j] / unit]++;
+                                }
+                            }
                             this.Invoke((MethodInvoker)delegate () { displayChart(); });
                         }
                     }
@@ -203,13 +223,6 @@ namespace PUF
         }
         private void displayChart()
         {
-            for (int i = 0; i < bitArray.Length; i++)
-            {
-                for (int j = 0; j < bitArray[i].Length; j++)
-                {
-                    pTotal[i][bitArray[i][j] / unit]++;
-                }
-            }
             for (int i = 0; i < pTotal.Length; i++)
                 Array.Copy(pTotal[i], 0, yValues[i], 0, yValues[i].Length);
             for (int i = 0; i < bitSeries.Length; i++)

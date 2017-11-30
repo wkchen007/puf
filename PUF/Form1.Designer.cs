@@ -45,6 +45,7 @@
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.txtInput = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -182,12 +183,22 @@
             this.chart4.TabIndex = 21;
             this.chart4.Text = "chart4";
             // 
+            // txtInput
+            // 
+            this.txtInput.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txtInput.Location = new System.Drawing.Point(662, 168);
+            this.txtInput.Name = "txtInput";
+            this.txtInput.Size = new System.Drawing.Size(200, 46);
+            this.txtInput.TabIndex = 22;
+            this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(984, 761);
+            this.Controls.Add(this.txtInput);
             this.Controls.Add(this.chart4);
             this.Controls.Add(this.chart3);
             this.Controls.Add(this.chart2);
@@ -230,6 +241,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.TextBox txtInput;
     }
 }
 
