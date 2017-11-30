@@ -25,8 +25,7 @@ namespace PUF
 
         private Chart[] charts;
         private Series[] bitSeries = new Series[4];
-        private int unit = 5;
-        private int chMax = 300;
+        private int unit = 5, chMax = 1025;
         private int[] xValues;
         private int[][] yValues = new int[4][];
 
@@ -34,9 +33,9 @@ namespace PUF
         private Thread receiveThread;
 
         private List<string> ExternalRead = new List<string>();
-        private Boolean ExternalReadCheck = false; Boolean pClick = false;
-        private int pCount = 0; int pComplete = 4105;
-        private int bitTh = 124;
+        private Boolean ExternalReadCheck = false, pClick = false;
+        private int pCount = 0, pComplete = 4105, bitTh = 124;
+        private int[][] pTotal = new int[4][];
         public Form1()
         {
             InitializeComponent();
@@ -55,10 +54,16 @@ namespace PUF
 
             for (int i = 0; i < bitArray.Length; i++)
                 bitArray[i] = new int[1024];
+            for (int i = 0; i < pTotal.Length; i++)
+                pTotal[i] = new int[1025 / unit];
 
             charts = new Chart[] { chart1, chart2, chart3, chart4 };
             xValues = new int[chMax / unit];
-
+            for (int i = 0; i < charts.Length; i++)
+            {
+                charts[i].ChartAreas[0].AxisX.ScaleView.Size = 500;
+                charts[i].SetBounds(-80, charts[i].Location.Y, charts[i].Size.Width, charts[i].Size.Height);
+            }
             for (int i = 0; i < xValues.Length; i++)
                 xValues[i] = unit * i;
             for (int i = 0; i < yValues.Length; i++)
@@ -75,7 +80,7 @@ namespace PUF
                 charts[i].Series.Add(bitSeries[i]);
                 bitSeries[i].ChartType = SeriesChartType.Column;
                 bitSeries[i].Name = "bitSeries" + i;
-                //bitSeries[i].IsValueShownAsLabel = true;
+                bitSeries[i].IsValueShownAsLabel = true;
 
                 //set chart data
                 bitSeries[i].Points.Clear();
@@ -134,7 +139,11 @@ namespace PUF
             ExternalRead.Clear();
             ExternalReadCheck = false;
             for (int i = 0; i < bitArray.Length; i++)
+            {
                 Array.Clear(bitArray[i], 0, bitArray[i].Length);
+                Array.Clear(pTotal[i], 0, pTotal[i].Length);
+            }
+
             for (int i = 0; i < yValues.Length; i++)
                 Array.Clear(yValues[i], 0, yValues[i].Length);
             pCount = 0;
@@ -198,9 +207,11 @@ namespace PUF
             {
                 for (int j = 0; j < bitArray[i].Length; j++)
                 {
-                    yValues[i][bitArray[i][j] / unit]++;
+                    pTotal[i][bitArray[i][j] / unit]++;
                 }
             }
+            for (int i = 0; i < pTotal.Length; i++)
+                Array.Copy(pTotal[i], 0, yValues[i], 0, yValues[i].Length);
             for (int i = 0; i < bitSeries.Length; i++)
             {
                 Axis ax = charts[i].ChartAreas[0].AxisX;

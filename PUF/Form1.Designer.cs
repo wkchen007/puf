@@ -148,7 +148,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(10, 750);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(850, 300);
+            this.chart1.Size = new System.Drawing.Size(1900, 300);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
             // 
@@ -158,7 +158,7 @@
             this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(10, 1060);
             this.chart2.Name = "chart2";
-            this.chart2.Size = new System.Drawing.Size(850, 300);
+            this.chart2.Size = new System.Drawing.Size(1900, 300);
             this.chart2.TabIndex = 19;
             this.chart2.Text = "chart2";
             // 
@@ -168,7 +168,7 @@
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.Location = new System.Drawing.Point(10, 1370);
             this.chart3.Name = "chart3";
-            this.chart3.Size = new System.Drawing.Size(850, 300);
+            this.chart3.Size = new System.Drawing.Size(1900, 300);
             this.chart3.TabIndex = 20;
             this.chart3.Text = "chart3";
             // 
@@ -178,7 +178,7 @@
             this.chart4.ChartAreas.Add(chartArea4);
             this.chart4.Location = new System.Drawing.Point(10, 1680);
             this.chart4.Name = "chart4";
-            this.chart4.Size = new System.Drawing.Size(850, 300);
+            this.chart4.Size = new System.Drawing.Size(1900, 300);
             this.chart4.TabIndex = 21;
             this.chart4.Text = "chart4";
             // 
@@ -203,6 +203,7 @@
             this.Controls.Add(this.btnCom);
             this.Name = "Form1";
             this.Text = "PUF Demo";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
