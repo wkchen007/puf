@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -55,28 +55,28 @@
             this.txtRef_42 = new System.Windows.Forms.TextBox();
             this.txtRef_11 = new System.Windows.Forms.TextBox();
             this.txtRef_13 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.txtRef_21 = new System.Windows.Forms.TextBox();
             this.txtRef_23 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.txtRef_31 = new System.Windows.Forms.TextBox();
             this.txtRef_33 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.txtRef_41 = new System.Windows.Forms.TextBox();
             this.txtRef_43 = new System.Windows.Forms.TextBox();
+            this.btnRef_11 = new System.Windows.Forms.Button();
+            this.btnRef_12 = new System.Windows.Forms.Button();
+            this.btnRef_13 = new System.Windows.Forms.Button();
+            this.btnRef_14 = new System.Windows.Forms.Button();
+            this.btnRef_21 = new System.Windows.Forms.Button();
+            this.btnRef_22 = new System.Windows.Forms.Button();
+            this.btnRef_23 = new System.Windows.Forms.Button();
+            this.btnRef_24 = new System.Windows.Forms.Button();
+            this.btnRef_31 = new System.Windows.Forms.Button();
+            this.btnRef_32 = new System.Windows.Forms.Button();
+            this.btnRef_33 = new System.Windows.Forms.Button();
+            this.btnRef_34 = new System.Windows.Forms.Button();
+            this.btnRef_41 = new System.Windows.Forms.Button();
+            this.btnRef_43 = new System.Windows.Forms.Button();
+            this.btnRef_42 = new System.Windows.Forms.Button();
+            this.btnRef_44 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -180,8 +180,8 @@
             // 
             // chart1
             // 
-            chartArea9.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea9);
+            chartArea17.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea17);
             this.chart1.Location = new System.Drawing.Point(350, 850);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
@@ -190,8 +190,8 @@
             // 
             // chart2
             // 
-            chartArea10.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea10);
+            chartArea18.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea18);
             this.chart2.Location = new System.Drawing.Point(350, 1300);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
@@ -200,8 +200,8 @@
             // 
             // chart3
             // 
-            chartArea11.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea11);
+            chartArea19.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea19);
             this.chart3.Location = new System.Drawing.Point(350, 1750);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
@@ -210,8 +210,8 @@
             // 
             // chart4
             // 
-            chartArea12.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea12);
+            chartArea20.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea20);
             this.chart4.Location = new System.Drawing.Point(350, 2200);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
@@ -320,86 +320,6 @@
             this.txtRef_13.TabIndex = 31;
             this.txtRef_13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_13_KeyDown);
             // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(10, 780);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 40);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "0";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(245, 780);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 40);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "1";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(480, 780);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(25, 40);
-            this.label6.TabIndex = 34;
-            this.label6.Text = "0";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(720, 780);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(25, 40);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "1";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(10, 1230);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(25, 40);
-            this.label8.TabIndex = 36;
-            this.label8.Text = "0";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(245, 1230);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(25, 40);
-            this.label9.TabIndex = 37;
-            this.label9.Text = "1";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(480, 1230);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(25, 40);
-            this.label10.TabIndex = 38;
-            this.label10.Text = "0";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(720, 1230);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(25, 40);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "1";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // txtRef_21
             // 
             this.txtRef_21.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -417,46 +337,6 @@
             this.txtRef_23.Size = new System.Drawing.Size(200, 46);
             this.txtRef_23.TabIndex = 41;
             this.txtRef_23.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_23_KeyDown);
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(10, 1680);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(25, 40);
-            this.label12.TabIndex = 42;
-            this.label12.Text = "0";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label13.Location = new System.Drawing.Point(245, 1680);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 40);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "1";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label14
-            // 
-            this.label14.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label14.Location = new System.Drawing.Point(480, 1680);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(25, 40);
-            this.label14.TabIndex = 44;
-            this.label14.Text = "0";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.Location = new System.Drawing.Point(720, 1680);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(25, 40);
-            this.label15.TabIndex = 45;
-            this.label15.Text = "1";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtRef_31
             // 
@@ -476,46 +356,6 @@
             this.txtRef_33.TabIndex = 47;
             this.txtRef_33.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_33_KeyDown);
             // 
-            // label16
-            // 
-            this.label16.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label16.Location = new System.Drawing.Point(10, 2130);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(25, 40);
-            this.label16.TabIndex = 48;
-            this.label16.Text = "0";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label17
-            // 
-            this.label17.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label17.Location = new System.Drawing.Point(245, 2130);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(25, 40);
-            this.label17.TabIndex = 49;
-            this.label17.Text = "1";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label18
-            // 
-            this.label18.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label18.Location = new System.Drawing.Point(480, 2130);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(25, 40);
-            this.label18.TabIndex = 50;
-            this.label18.Text = "0";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label19
-            // 
-            this.label19.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label19.Location = new System.Drawing.Point(720, 2130);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(25, 40);
-            this.label19.TabIndex = 51;
-            this.label19.Text = "1";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // txtRef_41
             // 
             this.txtRef_41.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -534,34 +374,242 @@
             this.txtRef_43.TabIndex = 53;
             this.txtRef_43.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_43_KeyDown);
             // 
+            // btnRef_11
+            // 
+            this.btnRef_11.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_11.Location = new System.Drawing.Point(10, 780);
+            this.btnRef_11.Name = "btnRef_11";
+            this.btnRef_11.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_11.TabIndex = 54;
+            this.btnRef_11.Text = "0";
+            this.btnRef_11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_11.UseCompatibleTextRendering = true;
+            this.btnRef_11.UseVisualStyleBackColor = true;
+            this.btnRef_11.Click += new System.EventHandler(this.btnRef_11_Click);
+            // 
+            // btnRef_12
+            // 
+            this.btnRef_12.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_12.Location = new System.Drawing.Point(245, 780);
+            this.btnRef_12.Name = "btnRef_12";
+            this.btnRef_12.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_12.TabIndex = 55;
+            this.btnRef_12.Text = "1";
+            this.btnRef_12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_12.UseCompatibleTextRendering = true;
+            this.btnRef_12.UseVisualStyleBackColor = true;
+            this.btnRef_12.Click += new System.EventHandler(this.btnRef_12_Click);
+            // 
+            // btnRef_13
+            // 
+            this.btnRef_13.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_13.Location = new System.Drawing.Point(480, 780);
+            this.btnRef_13.Name = "btnRef_13";
+            this.btnRef_13.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_13.TabIndex = 56;
+            this.btnRef_13.Text = "0";
+            this.btnRef_13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_13.UseCompatibleTextRendering = true;
+            this.btnRef_13.UseVisualStyleBackColor = true;
+            this.btnRef_13.Click += new System.EventHandler(this.btnRef_13_Click);
+            // 
+            // btnRef_14
+            // 
+            this.btnRef_14.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_14.Location = new System.Drawing.Point(720, 780);
+            this.btnRef_14.Name = "btnRef_14";
+            this.btnRef_14.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_14.TabIndex = 57;
+            this.btnRef_14.Text = "1";
+            this.btnRef_14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_14.UseCompatibleTextRendering = true;
+            this.btnRef_14.UseVisualStyleBackColor = true;
+            this.btnRef_14.Click += new System.EventHandler(this.btnRef_14_Click);
+            // 
+            // btnRef_21
+            // 
+            this.btnRef_21.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_21.Location = new System.Drawing.Point(10, 1230);
+            this.btnRef_21.Name = "btnRef_21";
+            this.btnRef_21.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_21.TabIndex = 58;
+            this.btnRef_21.Text = "0";
+            this.btnRef_21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_21.UseCompatibleTextRendering = true;
+            this.btnRef_21.UseVisualStyleBackColor = true;
+            this.btnRef_21.Click += new System.EventHandler(this.btnRef_21_Click);
+            // 
+            // btnRef_22
+            // 
+            this.btnRef_22.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_22.Location = new System.Drawing.Point(245, 1230);
+            this.btnRef_22.Name = "btnRef_22";
+            this.btnRef_22.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_22.TabIndex = 59;
+            this.btnRef_22.Text = "1";
+            this.btnRef_22.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_22.UseCompatibleTextRendering = true;
+            this.btnRef_22.UseVisualStyleBackColor = true;
+            this.btnRef_22.Click += new System.EventHandler(this.btnRef_22_Click);
+            // 
+            // btnRef_23
+            // 
+            this.btnRef_23.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_23.Location = new System.Drawing.Point(480, 1230);
+            this.btnRef_23.Name = "btnRef_23";
+            this.btnRef_23.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_23.TabIndex = 60;
+            this.btnRef_23.Text = "0";
+            this.btnRef_23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_23.UseCompatibleTextRendering = true;
+            this.btnRef_23.UseVisualStyleBackColor = true;
+            this.btnRef_23.Click += new System.EventHandler(this.btnRef_23_Click);
+            // 
+            // btnRef_24
+            // 
+            this.btnRef_24.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_24.Location = new System.Drawing.Point(720, 1230);
+            this.btnRef_24.Name = "btnRef_24";
+            this.btnRef_24.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_24.TabIndex = 61;
+            this.btnRef_24.Text = "1";
+            this.btnRef_24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_24.UseCompatibleTextRendering = true;
+            this.btnRef_24.UseVisualStyleBackColor = true;
+            this.btnRef_24.Click += new System.EventHandler(this.btnRef_24_Click);
+            // 
+            // btnRef_31
+            // 
+            this.btnRef_31.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_31.Location = new System.Drawing.Point(10, 1680);
+            this.btnRef_31.Name = "btnRef_31";
+            this.btnRef_31.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_31.TabIndex = 62;
+            this.btnRef_31.Text = "0";
+            this.btnRef_31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_31.UseCompatibleTextRendering = true;
+            this.btnRef_31.UseVisualStyleBackColor = true;
+            this.btnRef_31.Click += new System.EventHandler(this.btnRef_31_Click);
+            // 
+            // btnRef_32
+            // 
+            this.btnRef_32.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_32.Location = new System.Drawing.Point(245, 1680);
+            this.btnRef_32.Name = "btnRef_32";
+            this.btnRef_32.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_32.TabIndex = 63;
+            this.btnRef_32.Text = "1";
+            this.btnRef_32.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_32.UseCompatibleTextRendering = true;
+            this.btnRef_32.UseVisualStyleBackColor = true;
+            this.btnRef_32.Click += new System.EventHandler(this.btnRef_32_Click);
+            // 
+            // btnRef_33
+            // 
+            this.btnRef_33.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_33.Location = new System.Drawing.Point(480, 1680);
+            this.btnRef_33.Name = "btnRef_33";
+            this.btnRef_33.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_33.TabIndex = 64;
+            this.btnRef_33.Text = "0";
+            this.btnRef_33.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_33.UseCompatibleTextRendering = true;
+            this.btnRef_33.UseVisualStyleBackColor = true;
+            this.btnRef_33.Click += new System.EventHandler(this.btnRef_33_Click);
+            // 
+            // btnRef_34
+            // 
+            this.btnRef_34.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_34.Location = new System.Drawing.Point(720, 1680);
+            this.btnRef_34.Name = "btnRef_34";
+            this.btnRef_34.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_34.TabIndex = 65;
+            this.btnRef_34.Text = "1";
+            this.btnRef_34.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_34.UseCompatibleTextRendering = true;
+            this.btnRef_34.UseVisualStyleBackColor = true;
+            this.btnRef_34.Click += new System.EventHandler(this.btnRef_34_Click);
+            // 
+            // btnRef_41
+            // 
+            this.btnRef_41.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_41.Location = new System.Drawing.Point(10, 2130);
+            this.btnRef_41.Name = "btnRef_41";
+            this.btnRef_41.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_41.TabIndex = 66;
+            this.btnRef_41.Text = "0";
+            this.btnRef_41.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_41.UseCompatibleTextRendering = true;
+            this.btnRef_41.UseVisualStyleBackColor = true;
+            this.btnRef_41.Click += new System.EventHandler(this.btnRef_41_Click);
+            // 
+            // btnRef_43
+            // 
+            this.btnRef_43.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_43.Location = new System.Drawing.Point(480, 2130);
+            this.btnRef_43.Name = "btnRef_43";
+            this.btnRef_43.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_43.TabIndex = 67;
+            this.btnRef_43.Text = "0";
+            this.btnRef_43.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_43.UseCompatibleTextRendering = true;
+            this.btnRef_43.UseVisualStyleBackColor = true;
+            this.btnRef_43.Click += new System.EventHandler(this.btnRef_43_Click);
+            // 
+            // btnRef_42
+            // 
+            this.btnRef_42.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_42.Location = new System.Drawing.Point(245, 2130);
+            this.btnRef_42.Name = "btnRef_42";
+            this.btnRef_42.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_42.TabIndex = 68;
+            this.btnRef_42.Text = "1";
+            this.btnRef_42.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_42.UseCompatibleTextRendering = true;
+            this.btnRef_42.UseVisualStyleBackColor = true;
+            this.btnRef_42.Click += new System.EventHandler(this.btnRef_42_Click);
+            // 
+            // btnRef_44
+            // 
+            this.btnRef_44.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRef_44.Location = new System.Drawing.Point(720, 2130);
+            this.btnRef_44.Name = "btnRef_44";
+            this.btnRef_44.Size = new System.Drawing.Size(25, 40);
+            this.btnRef_44.TabIndex = 69;
+            this.btnRef_44.Text = "1";
+            this.btnRef_44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnRef_44.UseCompatibleTextRendering = true;
+            this.btnRef_44.UseVisualStyleBackColor = true;
+            this.btnRef_44.Click += new System.EventHandler(this.btnRef_44_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1018, 795);
+            this.ClientSize = new System.Drawing.Size(1035, 812);
+            this.Controls.Add(this.btnRef_44);
+            this.Controls.Add(this.btnRef_42);
+            this.Controls.Add(this.btnRef_43);
+            this.Controls.Add(this.btnRef_41);
+            this.Controls.Add(this.btnRef_34);
+            this.Controls.Add(this.btnRef_33);
+            this.Controls.Add(this.btnRef_32);
+            this.Controls.Add(this.btnRef_31);
+            this.Controls.Add(this.btnRef_24);
+            this.Controls.Add(this.btnRef_23);
+            this.Controls.Add(this.btnRef_22);
+            this.Controls.Add(this.btnRef_21);
+            this.Controls.Add(this.btnRef_14);
+            this.Controls.Add(this.btnRef_13);
+            this.Controls.Add(this.btnRef_12);
+            this.Controls.Add(this.btnRef_11);
             this.Controls.Add(this.txtRef_43);
             this.Controls.Add(this.txtRef_41);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.txtRef_33);
             this.Controls.Add(this.txtRef_31);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.txtRef_23);
             this.Controls.Add(this.txtRef_21);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtRef_13);
             this.Controls.Add(this.txtRef_11);
             this.Controls.Add(this.txtRef_42);
@@ -628,28 +676,28 @@
         private System.Windows.Forms.TextBox txtRef_42;
         private System.Windows.Forms.TextBox txtRef_11;
         private System.Windows.Forms.TextBox txtRef_13;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtRef_21;
         private System.Windows.Forms.TextBox txtRef_23;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtRef_31;
         private System.Windows.Forms.TextBox txtRef_33;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtRef_41;
         private System.Windows.Forms.TextBox txtRef_43;
+        private System.Windows.Forms.Button btnRef_11;
+        private System.Windows.Forms.Button btnRef_12;
+        private System.Windows.Forms.Button btnRef_13;
+        private System.Windows.Forms.Button btnRef_14;
+        private System.Windows.Forms.Button btnRef_21;
+        private System.Windows.Forms.Button btnRef_22;
+        private System.Windows.Forms.Button btnRef_23;
+        private System.Windows.Forms.Button btnRef_24;
+        private System.Windows.Forms.Button btnRef_31;
+        private System.Windows.Forms.Button btnRef_32;
+        private System.Windows.Forms.Button btnRef_33;
+        private System.Windows.Forms.Button btnRef_34;
+        private System.Windows.Forms.Button btnRef_41;
+        private System.Windows.Forms.Button btnRef_43;
+        private System.Windows.Forms.Button btnRef_42;
+        private System.Windows.Forms.Button btnRef_44;
     }
 }
 
