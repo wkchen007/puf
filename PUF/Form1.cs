@@ -35,10 +35,16 @@ namespace PUF
         private Thread receiveThread;
 
         private List<string> ExternalRead = new List<string>();
-        private Boolean ExternalReadCheck = false, pClick = false;
-        private int pCount = 0, pComplete = 4105;
+        private string actionClick = "";
+        private int readCount = 0;
         private int bitTh1 = 124, bitTh2 = 128, bitTh3 = 133;
-        private int[][] pTotal = new int[4][];
+        private int[][] chTotal = new int[4][]; //直方圖每格數值陣列
+        //PUFRead變數
+        private Boolean PUFReadCheck = false;
+        private int PUFReadComplete = 4105;
+        //Read變數
+        private Boolean ExtReadCheck = false;
+        private int ExtReadComplete = 2055;
 
         private DataGridView[] refGrids;
         private int[][] refBitTh = new int[4][];
@@ -84,8 +90,8 @@ namespace PUF
             }
             for (int i = 0; i < bitArray.Length; i++)
                 bitArray[i] = new int[1024];
-            for (int i = 0; i < pTotal.Length; i++)
-                pTotal[i] = new int[1025 / unit];
+            for (int i = 0; i < chTotal.Length; i++)
+                chTotal[i] = new int[1025 / unit];
 
             charts = new Chart[] { chart1, chart2, chart3, chart4 };
 
@@ -153,6 +159,7 @@ namespace PUF
                 serialPort1.Open();
                 serialPort1.DiscardInBuffer();
                 btnPUF.Enabled = true;
+                btnRead.Enabled = true;
                 btnCom.Text = "Close";
                 receiving = true;
                 receiveThread = new Thread(DoReceive);
@@ -164,32 +171,48 @@ namespace PUF
                 receiving = false;
                 serialPort1.Close();
                 btnPUF.Enabled = false;
+                btnRead.Enabled = false;
                 btnCom.Text = "Open";
             }
         }
-
         private void btnPUF_Click(object sender, EventArgs e)
         {
-
             ExternalRead.Clear();
-            ExternalReadCheck = false;
+            PUFReadCheck = false;
             for (int i = 0; i < bitArray.Length; i++)
             {
                 Array.Clear(bitArray[i], 0, bitArray[i].Length);
-                Array.Clear(pTotal[i], 0, pTotal[i].Length);
+                Array.Clear(chTotal[i], 0, chTotal[i].Length);
             }
 
             for (int i = 0; i < yValues.Length; i++)
                 Array.Clear(yValues[i], 0, yValues[i].Length);
-            pCount = 0;
-            pClick = true;
+            readCount = 0;
+            actionClick = "btnPUF_Click";
             zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
             oneCount[0] = 0; oneCount[1] = 0; oneCount[2] = 0; oneCount[3] = 0;
             serialPort1.Write("z");
             serialPort1.Write("o");
             serialPort1.Write("r");
         }
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            ExternalRead.Clear();
+            ExtReadCheck = false;
+            for (int i = 0; i < bitArray.Length; i++)
+            {
+                Array.Clear(bitArray[i], 0, bitArray[i].Length);
+                Array.Clear(chTotal[i], 0, chTotal[i].Length);
+            }
 
+            for (int i = 0; i < yValues.Length; i++)
+                Array.Clear(yValues[i], 0, yValues[i].Length);
+            readCount = 0;
+            actionClick = "btnRead_Click";
+            zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
+            oneCount[0] = 0; oneCount[1] = 0; oneCount[2] = 0; oneCount[3] = 0;
+            serialPort1.Write("r");
+        }
         private void DoReceive()
         {
             string temp = "";
@@ -198,56 +221,107 @@ namespace PUF
                 if (serialPort1.BytesToRead > 0)
                 {
                     temp = serialPort1.ReadLine();
-                    if (pClick)
+                    if (actionClick == "btnPUF_Click")
                     {
-                        this.Invoke((MethodInvoker)delegate () { btnPUF.Text = "Read...(" + pCount * 100 / pComplete + "%)"; });
-                        pCount++;
-                    }
-                    if (temp.Contains("External read") && ExternalReadCheck == false)
-                    {
-                        ExternalReadCheck = true;
-                        ExternalRead.Add(temp);
-                        //Console.Write(temp);
-                    }
-                    else if (ExternalReadCheck == true)
-                    {
-                        this.Invoke((MethodInvoker)delegate () { btnPUF.Text = "Read...(" + pCount * 100 / pComplete + "%)"; });
-                        pCount++;
-                        ExternalRead.Add(temp);
-                        //Console.Write(temp);
+                        this.Invoke((MethodInvoker)delegate () { btnPUF.Text = "Read...(" + readCount * 100 / PUFReadComplete + "%)"; });
+                        readCount++;
 
-                        if (temp.Contains("End"))
+                        if (temp.Contains("External read") && PUFReadCheck == false)
                         {
-                            ExternalReadCheck = false;
+                            PUFReadCheck = true;
+                            ExternalRead.Add(temp);
+                            //Console.Write(temp);
+                        }
+                        else if (PUFReadCheck == true)
+                        {
+                            this.Invoke((MethodInvoker)delegate () { btnPUF.Text = "Read...(" + readCount * 100 / PUFReadComplete + "%)"; });
+                            readCount++;
+                            ExternalRead.Add(temp);
+                            //Console.Write(temp);
 
-                            int[] numbers;
-                            for (int i = 1; i < 1025; i++)
+                            if (temp.Contains("End"))
                             {
-                                //Console.Write(ExternalRead[i]);
-                                numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-                                bitArray[0][i - 1] = numbers[0];
-                                bitArray[1][i - 1] = numbers[1];
-                                bitArray[2][i - 1] = numbers[2];
-                                bitArray[3][i - 1] = numbers[3];
-                            }
-                            //Console.WriteLine(pCount);
-                            for (int i = 0; i < bitArray.Length; i++)
-                            {
-                                for (int j = 0; j < bitArray[i].Length; j++)
+                                PUFReadCheck = false;
+
+                                int[] numbers;
+                                for (int i = 1; i < 1025; i++)
                                 {
-                                    pTotal[i][bitArray[i][j] / unit]++;
+                                    //Console.Write(ExternalRead[i]);
+                                    numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+                                    bitArray[0][i - 1] = numbers[0];
+                                    bitArray[1][i - 1] = numbers[1];
+                                    bitArray[2][i - 1] = numbers[2];
+                                    bitArray[3][i - 1] = numbers[3];
                                 }
+                                //Console.WriteLine(readCount);
+                                for (int i = 0; i < bitArray.Length; i++)
+                                {
+                                    for (int j = 0; j < bitArray[i].Length; j++)
+                                    {
+                                        chTotal[i][bitArray[i][j] / unit]++;
+                                    }
+                                }
+                                actionClick = "";
+                                this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
-                            this.Invoke((MethodInvoker)delegate () { displayChart(); });
+                        }
+                    }                    
+                    else if(actionClick == "btnRead_Click")
+                    {
+                        
+                        this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
+                        readCount++;
+                        
+                        if (temp.Contains("External read") && ExtReadCheck == false)
+                        {
+                            ExtReadCheck = true;
+                            ExternalRead.Add(temp);
+                            //Console.Write(temp);
+                        }
+                        else if (ExtReadCheck == true)
+                        {
+                            
+                            this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
+                            readCount++;
+                            
+                            ExternalRead.Add(temp);
+                            //Console.Write(temp);
+
+                            if (temp.Contains("End"))
+                            {
+                                ExtReadCheck = false;
+
+                                int[] numbers;
+                                for (int i = 1; i < 1025; i++)
+                                {
+                                    //Console.Write(ExternalRead[i]);
+                                    numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+                                    bitArray[0][i - 1] = numbers[0];
+                                    bitArray[1][i - 1] = numbers[1];
+                                    bitArray[2][i - 1] = numbers[2];
+                                    bitArray[3][i - 1] = numbers[3];
+                                }
+                                //Console.WriteLine(readCount);
+                                for (int i = 0; i < bitArray.Length; i++)
+                                {
+                                    for (int j = 0; j < bitArray[i].Length; j++)
+                                    {
+                                        chTotal[i][bitArray[i][j] / unit]++;
+                                    }
+                                }
+                                actionClick = "";
+                                this.Invoke((MethodInvoker)delegate () { displayChart(); });
+                            }
                         }
                     }
+                    
                 }
             }
         }
         private void displayChart()
         {
-            for (int i = 0; i < pTotal.Length; i++)
-                Array.Copy(pTotal[i], 0, yValues[i], 0, yValues[i].Length);
+            for (int i = 0; i < chTotal.Length; i++)
+                Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
             for (int i = 0; i < bitSeries.Length; i++)
             {
                 Axis ax = charts[i].ChartAreas[0].AxisX;
@@ -310,6 +384,7 @@ namespace PUF
             labZero.Text = "0: " + zeroPercent * 100 + " %";
             labOne.Text = "1: " + onePercent * 100 + " %";
             btnPUF.Text = "PUF";
+            btnRead.Text = "Read";
         }
 
         private void txtRef_11_KeyDown(object sender, KeyEventArgs e)
@@ -667,6 +742,7 @@ namespace PUF
             labZero.Text = "0: " + zeroPercent * 100 + " %";
             labOne.Text = "1: " + onePercent * 100 + " %";
             btnPUF.Text = "PUF";
+            btnRead.Text = "Read";
         }
 
         private void displayMapArray(int index, int offsetX, int offsetY, Color[] color)
@@ -709,6 +785,7 @@ namespace PUF
             labZero.Text = "0: " + zeroPercent * 100 + " %";
             labOne.Text = "1: " + onePercent * 100 + " %";
             btnPUF.Text = "PUF";
+            btnRead.Text = "Read";
         }
     }
 }

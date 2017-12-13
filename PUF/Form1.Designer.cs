@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -77,6 +77,7 @@
             this.btnRef_43 = new System.Windows.Forms.Button();
             this.btnRef_42 = new System.Windows.Forms.Button();
             this.btnRef_44 = new System.Windows.Forms.Button();
+            this.btnRead = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -180,8 +181,8 @@
             // 
             // chart1
             // 
-            chartArea17.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea17);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
             this.chart1.Location = new System.Drawing.Point(350, 850);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
@@ -190,8 +191,8 @@
             // 
             // chart2
             // 
-            chartArea18.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea18);
+            chartArea6.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea6);
             this.chart2.Location = new System.Drawing.Point(350, 1300);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
@@ -200,8 +201,8 @@
             // 
             // chart3
             // 
-            chartArea19.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea19);
+            chartArea7.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea7);
             this.chart3.Location = new System.Drawing.Point(350, 1750);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
@@ -210,8 +211,8 @@
             // 
             // chart4
             // 
-            chartArea20.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea20);
+            chartArea8.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea8);
             this.chart4.Location = new System.Drawing.Point(350, 2200);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
@@ -582,12 +583,25 @@
             this.btnRef_44.UseVisualStyleBackColor = true;
             this.btnRef_44.Click += new System.EventHandler(this.btnRef_44_Click);
             // 
+            // btnRead
+            // 
+            this.btnRead.Enabled = false;
+            this.btnRead.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRead.Location = new System.Drawing.Point(662, 150);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(200, 60);
+            this.btnRead.TabIndex = 70;
+            this.btnRead.Text = "Read";
+            this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1035, 812);
+            this.Controls.Add(this.btnRead);
             this.Controls.Add(this.btnRef_44);
             this.Controls.Add(this.btnRef_42);
             this.Controls.Add(this.btnRef_43);
@@ -698,6 +712,7 @@
         private System.Windows.Forms.Button btnRef_43;
         private System.Windows.Forms.Button btnRef_42;
         private System.Windows.Forms.Button btnRef_44;
+        private System.Windows.Forms.Button btnRead;
     }
 }
 
