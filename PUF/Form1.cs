@@ -110,24 +110,13 @@ namespace PUF
             {
                 bitSeries[i] = new Series();
                 charts[i].ChartAreas[0].AxisY.Maximum = 400;
-                Axis ax = charts[i].ChartAreas[0].AxisX;
-                ax.Interval = CHART_UNIT;
-                ax.IntervalOffset = 0;
-                ax.Minimum = 0;
-                ax.Maximum = CHART_LENGTH;
                 charts[i].Series.Add(bitSeries[i]);
                 bitSeries[i].ChartType = SeriesChartType.Column;
                 bitSeries[i].Name = "bitSeries" + i;
                 bitSeries[i].IsValueShownAsLabel = true;
-
-                //set chart data
-                bitSeries[i].Points.Clear();
-                bitSeries[i].Points.DataBindXY(xValues, yValues[i]);
-                //set bitSeries axis x offset
-                foreach (DataPoint dp in bitSeries[i].Points) dp.XValue += ax.Interval / 2;
             }
+            setChartData();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             dataGridView1.ClearSelection();
@@ -144,7 +133,6 @@ namespace PUF
                 }
             }
         }
-
         private void btnCom_Click(object sender, EventArgs e)
         {
             Button btnCom = (Button)sender;
@@ -237,25 +225,7 @@ namespace PUF
                             if (temp.Contains("End"))
                             {
                                 PUFReadCheck = false;
-
-                                int[] numbers;
-                                for (int i = 1; i < 1025; i++)
-                                {
-                                    //Console.Write(ExternalRead[i]);
-                                    numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-                                    bitArray[0][i - 1] = numbers[0];
-                                    bitArray[1][i - 1] = numbers[1];
-                                    bitArray[2][i - 1] = numbers[2];
-                                    bitArray[3][i - 1] = numbers[3];
-                                }
-                                //Console.WriteLine(readCount);
-                                for (int i = 0; i < bitArray.Length; i++)
-                                {
-                                    for (int j = 0; j < bitArray[i].Length; j++)
-                                    {
-                                        chTotal[i][bitArray[i][j] / CHART_UNIT]++;
-                                    }
-                                }
+                                bitParse();
                                 actionClick = "";
                                 this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
@@ -263,7 +233,6 @@ namespace PUF
                     }
                     else if (actionClick == "btnRead_Click")
                     {
-
                         this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
                         readCount++;
 
@@ -275,48 +244,46 @@ namespace PUF
                         }
                         else if (ExtReadCheck == true)
                         {
-
                             this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
                             readCount++;
-
                             ExternalRead.Add(temp);
                             //Console.Write(temp);
 
                             if (temp.Contains("End"))
                             {
                                 ExtReadCheck = false;
-
-                                int[] numbers;
-                                for (int i = 1; i < 1025; i++)
-                                {
-                                    //Console.Write(ExternalRead[i]);
-                                    numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-                                    bitArray[0][i - 1] = numbers[0];
-                                    bitArray[1][i - 1] = numbers[1];
-                                    bitArray[2][i - 1] = numbers[2];
-                                    bitArray[3][i - 1] = numbers[3];
-                                }
-                                //Console.WriteLine(readCount);
-                                for (int i = 0; i < bitArray.Length; i++)
-                                {
-                                    for (int j = 0; j < bitArray[i].Length; j++)
-                                    {
-                                        chTotal[i][bitArray[i][j] / CHART_UNIT]++;
-                                    }
-                                }
+                                bitParse();
                                 actionClick = "";
                                 this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
                         }
                     }
-
                 }
             }
         }
-        private void displayChart()
+        private void bitParse()
         {
-            for (int i = 0; i < yValues.Length; i++)
-                Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
+            int[] numbers;
+            for (int i = 1; i < 1025; i++)
+            {
+                //Console.Write(ExternalRead[i]);
+                numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+                bitArray[0][i - 1] = numbers[0];
+                bitArray[1][i - 1] = numbers[1];
+                bitArray[2][i - 1] = numbers[2];
+                bitArray[3][i - 1] = numbers[3];
+            }
+            //Console.WriteLine(readCount);
+            for (int i = 0; i < bitArray.Length; i++)
+            {
+                for (int j = 0; j < bitArray[i].Length; j++)
+                {
+                    chTotal[i][bitArray[i][j] / CHART_UNIT]++;
+                }
+            }
+        }
+        private void setChartData()
+        {
             for (int i = 0; i < bitSeries.Length; i++)
             {
                 Axis ax = charts[i].ChartAreas[0].AxisX;
@@ -331,9 +298,14 @@ namespace PUF
                 //set bitSeries axis x offset
                 foreach (DataPoint dp in bitSeries[i].Points) dp.XValue += ax.Interval / 2;
             }
+        }
+        private void displayChart()
+        {
+            for (int i = 0; i < yValues.Length; i++)
+                Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
+            setChartData();
             displayMapArray();
         }
-
         private void displayMapArray()
         {
             int[] offsetX = new int[] { 0, 32, 0, 32 };
