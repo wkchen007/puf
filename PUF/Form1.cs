@@ -17,40 +17,44 @@ namespace PUF
 {
     public partial class Form1 : Form
     {
-        private SerialPort serialPort1 = new SerialPort();
-        private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
-        private int[] zeroCount = new int[4];
-        private int[] oneCount = new int[4];
+        private const int BLOCK_SIZE = 4;
+        private const int CHART_UNIT = 5, CHART_LENGTH = 1025;
         private delegate void Display();
-        private int[][] bitArray = new int[4][];
-        private Color cZero = Color.FromArgb(52, 43, 134), cOne = Color.FromArgb(249, 253, 8);
-
-        private Chart[] charts;
-        private Series[] bitSeries = new Series[4];
-        private int unit = 5, chMax = 1025;
-        private int[] xValues;
-        private int[][] yValues = new int[4][];
-
+        //讀取電路thread
+        private SerialPort serialPort1 = new SerialPort();
         private Boolean receiving;
         private Thread receiveThread;
-
         private List<string> ExternalRead = new List<string>();
         private string actionClick = "";
         private int readCount = 0;
-        private int bitTh1 = 124, bitTh2 = 128, bitTh3 = 133;
-        private int[][] chTotal = new int[4][]; //直方圖每格數值陣列
-        //PUFRead變數
+        //圖表變數
+        private Color cZero = Color.FromArgb(52, 43, 134), //藍色
+              cOne = Color.FromArgb(249, 253, 8); //黃色
+        private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
+        private int[] zeroCount = new int[BLOCK_SIZE];
+        private int[] oneCount = new int[BLOCK_SIZE];
+        private int[][] bitArray = new int[BLOCK_SIZE][];
+        private Chart[] charts;
+        private Series[] bitSeries = new Series[BLOCK_SIZE];
+        private int[] xValues = new int[CHART_LENGTH / CHART_UNIT];
+        private int[][] yValues = new int[BLOCK_SIZE][];
+        private int[][] chTotal = new int[BLOCK_SIZE][]; //暫存直方圖的數值陣列，防止yValues超出陣列上限
+        //PUFRead方法的變數
         private Boolean PUFReadCheck = false;
         private int PUFReadComplete = 4105;
-        //Read變數
+        //Read方法的變數
         private Boolean ExtReadCheck = false;
         private int ExtReadComplete = 2055;
-
+        //bit reference變數
+        private int bitTh1 = 124, bitTh2 = 128, bitTh3 = 133;
         private DataGridView[] refGrids;
-        private int[][] refBitTh = new int[4][];
+        private int[][] refBitTh = new int[BLOCK_SIZE][];
         public Form1()
         {
             InitializeComponent();
+            //大圖初始化
+            for (int i = 0; i < bitArray.Length; i++)
+                bitArray[i] = new int[1024];
             for (int i = 0; i < Col.Length; i++)
             {
                 this.Col[i] = new DataGridViewTextBoxColumn();
@@ -63,15 +67,8 @@ namespace PUF
             dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Enabled = false;
-
+            //小圖初始化
             refGrids = new DataGridView[] { refGridView1, refGridView2, refGridView3, refGridView4 };
-            for (int i = 0; i < refBitTh.Length; i++)
-                refBitTh[i] = new int[] { bitTh1, bitTh2, bitTh3 };
-            txtRef_11.Text = bitTh1.ToString(); txtRef_12.Text = bitTh2.ToString(); txtRef_13.Text = bitTh3.ToString();
-            txtRef_21.Text = bitTh1.ToString(); txtRef_22.Text = bitTh2.ToString(); txtRef_23.Text = bitTh3.ToString();
-            txtRef_31.Text = bitTh1.ToString(); txtRef_32.Text = bitTh2.ToString(); txtRef_33.Text = bitTh3.ToString();
-            txtRef_41.Text = bitTh1.ToString(); txtRef_42.Text = bitTh2.ToString(); txtRef_43.Text = bitTh3.ToString();
-
             for (int i = 0; i < refGrids.Length; i++)
             {
                 DataGridViewTextBoxColumn[] c = new DataGridViewTextBoxColumn[32];
@@ -88,34 +85,36 @@ namespace PUF
                 refGrids[i].RowHeadersVisible = false;
                 refGrids[i].Enabled = false;
             }
-            for (int i = 0; i < bitArray.Length; i++)
-                bitArray[i] = new int[1024];
-            for (int i = 0; i < chTotal.Length; i++)
-                chTotal[i] = new int[1025 / unit];
-
+            //reference初始化
+            for (int i = 0; i < refBitTh.Length; i++)
+                refBitTh[i] = new int[] { bitTh1, bitTh2, bitTh3 };
+            txtRef_11.Text = bitTh1.ToString(); txtRef_12.Text = bitTh2.ToString(); txtRef_13.Text = bitTh3.ToString();
+            txtRef_21.Text = bitTh1.ToString(); txtRef_22.Text = bitTh2.ToString(); txtRef_23.Text = bitTh3.ToString();
+            txtRef_31.Text = bitTh1.ToString(); txtRef_32.Text = bitTh2.ToString(); txtRef_33.Text = bitTh3.ToString();
+            txtRef_41.Text = bitTh1.ToString(); txtRef_42.Text = bitTh2.ToString(); txtRef_43.Text = bitTh3.ToString();
+            //統計表初始化
+            for (int i = 0; i < xValues.Length; i++)
+                xValues[i] = CHART_UNIT * i;
+            for (int i = 0; i < yValues.Length; i++)
+            {
+                yValues[i] = new int[CHART_LENGTH / CHART_UNIT];
+                chTotal[i] = new int[1025 / CHART_UNIT]; //訊號最高值:1025
+            }
             charts = new Chart[] { chart1, chart2, chart3, chart4 };
-
-            xValues = new int[chMax / unit];
-
             for (int i = 0; i < charts.Length; i++)
             {
                 charts[i].ChartAreas[0].AxisX.ScaleView.Size = 400;
                 charts[i].SetBounds(270, charts[i].Location.Y, charts[i].Size.Width, charts[i].Size.Height);
             }
-
-            for (int i = 0; i < xValues.Length; i++)
-                xValues[i] = unit * i;
-            for (int i = 0; i < yValues.Length; i++)
-                yValues[i] = new int[chMax / unit];
             for (int i = 0; i < bitSeries.Length; i++)
             {
                 bitSeries[i] = new Series();
                 charts[i].ChartAreas[0].AxisY.Maximum = 400;
                 Axis ax = charts[i].ChartAreas[0].AxisX;
-                ax.Interval = unit;
+                ax.Interval = CHART_UNIT;
                 ax.IntervalOffset = 0;
                 ax.Minimum = 0;
-                ax.Maximum = chMax;
+                ax.Maximum = CHART_LENGTH;
                 charts[i].Series.Add(bitSeries[i]);
                 bitSeries[i].ChartType = SeriesChartType.Column;
                 bitSeries[i].Name = "bitSeries" + i;
@@ -183,10 +182,8 @@ namespace PUF
             {
                 Array.Clear(bitArray[i], 0, bitArray[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
-            }
-
-            for (int i = 0; i < yValues.Length; i++)
                 Array.Clear(yValues[i], 0, yValues[i].Length);
+            }
             readCount = 0;
             actionClick = "btnPUF_Click";
             zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
@@ -203,10 +200,8 @@ namespace PUF
             {
                 Array.Clear(bitArray[i], 0, bitArray[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
-            }
-
-            for (int i = 0; i < yValues.Length; i++)
                 Array.Clear(yValues[i], 0, yValues[i].Length);
+            }
             readCount = 0;
             actionClick = "btnRead_Click";
             zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
@@ -258,20 +253,20 @@ namespace PUF
                                 {
                                     for (int j = 0; j < bitArray[i].Length; j++)
                                     {
-                                        chTotal[i][bitArray[i][j] / unit]++;
+                                        chTotal[i][bitArray[i][j] / CHART_UNIT]++;
                                     }
                                 }
                                 actionClick = "";
                                 this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
                         }
-                    }                    
-                    else if(actionClick == "btnRead_Click")
+                    }
+                    else if (actionClick == "btnRead_Click")
                     {
-                        
+
                         this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
                         readCount++;
-                        
+
                         if (temp.Contains("External read") && ExtReadCheck == false)
                         {
                             ExtReadCheck = true;
@@ -280,10 +275,10 @@ namespace PUF
                         }
                         else if (ExtReadCheck == true)
                         {
-                            
+
                             this.Invoke((MethodInvoker)delegate () { btnRead.Text = "Read...(" + readCount * 100 / ExtReadComplete + "%)"; });
                             readCount++;
-                            
+
                             ExternalRead.Add(temp);
                             //Console.Write(temp);
 
@@ -306,7 +301,7 @@ namespace PUF
                                 {
                                     for (int j = 0; j < bitArray[i].Length; j++)
                                     {
-                                        chTotal[i][bitArray[i][j] / unit]++;
+                                        chTotal[i][bitArray[i][j] / CHART_UNIT]++;
                                     }
                                 }
                                 actionClick = "";
@@ -314,21 +309,21 @@ namespace PUF
                             }
                         }
                     }
-                    
+
                 }
             }
         }
         private void displayChart()
         {
-            for (int i = 0; i < chTotal.Length; i++)
+            for (int i = 0; i < yValues.Length; i++)
                 Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
             for (int i = 0; i < bitSeries.Length; i++)
             {
                 Axis ax = charts[i].ChartAreas[0].AxisX;
-                ax.Interval = unit;
+                ax.Interval = CHART_UNIT;
                 ax.IntervalOffset = 0;
                 ax.Minimum = 0;
-                ax.Maximum = chMax;
+                ax.Maximum = CHART_LENGTH;
 
                 //set chart data
                 bitSeries[i].Points.Clear();

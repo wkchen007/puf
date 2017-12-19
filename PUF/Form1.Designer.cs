@@ -150,7 +150,7 @@
             // labZero
             // 
             this.labZero.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labZero.Location = new System.Drawing.Point(712, 360);
+            this.labZero.Location = new System.Drawing.Point(712, 460);
             this.labZero.Name = "labZero";
             this.labZero.Size = new System.Drawing.Size(200, 54);
             this.labZero.TabIndex = 13;
@@ -160,7 +160,7 @@
             // labOne
             // 
             this.labOne.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labOne.Location = new System.Drawing.Point(712, 460);
+            this.labOne.Location = new System.Drawing.Point(712, 360);
             this.labOne.Name = "labOne";
             this.labOne.Size = new System.Drawing.Size(200, 56);
             this.labOne.TabIndex = 14;
