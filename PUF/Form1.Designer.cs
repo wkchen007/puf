@@ -226,7 +226,7 @@
             this.txtRef_12.Name = "txtRef_12";
             this.txtRef_12.Size = new System.Drawing.Size(200, 46);
             this.txtRef_12.TabIndex = 22;
-            this.txtRef_12.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_12_KeyDown);
+            this.txtRef_12.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_1_KeyDown);
             // 
             // refGridView1
             // 
@@ -283,7 +283,7 @@
             this.txtRef_22.Name = "txtRef_22";
             this.txtRef_22.Size = new System.Drawing.Size(200, 46);
             this.txtRef_22.TabIndex = 27;
-            this.txtRef_22.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_22_KeyDown);
+            this.txtRef_22.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_2_KeyDown);
             // 
             // txtRef_32
             // 
@@ -292,7 +292,7 @@
             this.txtRef_32.Name = "txtRef_32";
             this.txtRef_32.Size = new System.Drawing.Size(200, 46);
             this.txtRef_32.TabIndex = 28;
-            this.txtRef_32.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_32_KeyDown);
+            this.txtRef_32.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_3_KeyDown);
             // 
             // txtRef_42
             // 
@@ -301,7 +301,7 @@
             this.txtRef_42.Name = "txtRef_42";
             this.txtRef_42.Size = new System.Drawing.Size(200, 46);
             this.txtRef_42.TabIndex = 29;
-            this.txtRef_42.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_42_KeyDown);
+            this.txtRef_42.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_4_KeyDown);
             // 
             // txtRef_11
             // 
@@ -310,7 +310,7 @@
             this.txtRef_11.Name = "txtRef_11";
             this.txtRef_11.Size = new System.Drawing.Size(200, 46);
             this.txtRef_11.TabIndex = 30;
-            this.txtRef_11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_11_KeyDown);
+            this.txtRef_11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_1_KeyDown);
             // 
             // txtRef_13
             // 
@@ -319,7 +319,7 @@
             this.txtRef_13.Name = "txtRef_13";
             this.txtRef_13.Size = new System.Drawing.Size(200, 46);
             this.txtRef_13.TabIndex = 31;
-            this.txtRef_13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_13_KeyDown);
+            this.txtRef_13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_1_KeyDown);
             // 
             // txtRef_21
             // 
@@ -328,7 +328,7 @@
             this.txtRef_21.Name = "txtRef_21";
             this.txtRef_21.Size = new System.Drawing.Size(200, 46);
             this.txtRef_21.TabIndex = 40;
-            this.txtRef_21.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_21_KeyDown);
+            this.txtRef_21.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_2_KeyDown);
             // 
             // txtRef_23
             // 
@@ -337,7 +337,7 @@
             this.txtRef_23.Name = "txtRef_23";
             this.txtRef_23.Size = new System.Drawing.Size(200, 46);
             this.txtRef_23.TabIndex = 41;
-            this.txtRef_23.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_23_KeyDown);
+            this.txtRef_23.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_2_KeyDown);
             // 
             // txtRef_31
             // 
@@ -346,7 +346,7 @@
             this.txtRef_31.Name = "txtRef_31";
             this.txtRef_31.Size = new System.Drawing.Size(200, 46);
             this.txtRef_31.TabIndex = 46;
-            this.txtRef_31.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_31_KeyDown);
+            this.txtRef_31.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_3_KeyDown);
             // 
             // txtRef_33
             // 
@@ -355,7 +355,7 @@
             this.txtRef_33.Name = "txtRef_33";
             this.txtRef_33.Size = new System.Drawing.Size(200, 46);
             this.txtRef_33.TabIndex = 47;
-            this.txtRef_33.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_33_KeyDown);
+            this.txtRef_33.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_3_KeyDown);
             // 
             // txtRef_41
             // 
@@ -364,7 +364,7 @@
             this.txtRef_41.Name = "txtRef_41";
             this.txtRef_41.Size = new System.Drawing.Size(200, 46);
             this.txtRef_41.TabIndex = 52;
-            this.txtRef_41.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_41_KeyDown);
+            this.txtRef_41.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_4_KeyDown);
             // 
             // txtRef_43
             // 
@@ -373,7 +373,7 @@
             this.txtRef_43.Name = "txtRef_43";
             this.txtRef_43.Size = new System.Drawing.Size(200, 46);
             this.txtRef_43.TabIndex = 53;
-            this.txtRef_43.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_43_KeyDown);
+            this.txtRef_43.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRef_4_KeyDown);
             // 
             // btnRef_11
             // 
@@ -386,7 +386,7 @@
             this.btnRef_11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_11.UseCompatibleTextRendering = true;
             this.btnRef_11.UseVisualStyleBackColor = true;
-            this.btnRef_11.Click += new System.EventHandler(this.btnRef_11_Click);
+            this.btnRef_11.Click += new System.EventHandler(this.btnRef_1_Click);
             // 
             // btnRef_12
             // 
@@ -399,7 +399,7 @@
             this.btnRef_12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_12.UseCompatibleTextRendering = true;
             this.btnRef_12.UseVisualStyleBackColor = true;
-            this.btnRef_12.Click += new System.EventHandler(this.btnRef_12_Click);
+            this.btnRef_12.Click += new System.EventHandler(this.btnRef_1_Click);
             // 
             // btnRef_13
             // 
@@ -412,7 +412,7 @@
             this.btnRef_13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_13.UseCompatibleTextRendering = true;
             this.btnRef_13.UseVisualStyleBackColor = true;
-            this.btnRef_13.Click += new System.EventHandler(this.btnRef_13_Click);
+            this.btnRef_13.Click += new System.EventHandler(this.btnRef_1_Click);
             // 
             // btnRef_14
             // 
@@ -425,7 +425,7 @@
             this.btnRef_14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_14.UseCompatibleTextRendering = true;
             this.btnRef_14.UseVisualStyleBackColor = true;
-            this.btnRef_14.Click += new System.EventHandler(this.btnRef_14_Click);
+            this.btnRef_14.Click += new System.EventHandler(this.btnRef_1_Click);
             // 
             // btnRef_21
             // 
@@ -438,7 +438,7 @@
             this.btnRef_21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_21.UseCompatibleTextRendering = true;
             this.btnRef_21.UseVisualStyleBackColor = true;
-            this.btnRef_21.Click += new System.EventHandler(this.btnRef_21_Click);
+            this.btnRef_21.Click += new System.EventHandler(this.btnRef_2_Click);
             // 
             // btnRef_22
             // 
@@ -451,7 +451,7 @@
             this.btnRef_22.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_22.UseCompatibleTextRendering = true;
             this.btnRef_22.UseVisualStyleBackColor = true;
-            this.btnRef_22.Click += new System.EventHandler(this.btnRef_22_Click);
+            this.btnRef_22.Click += new System.EventHandler(this.btnRef_2_Click);
             // 
             // btnRef_23
             // 
@@ -464,7 +464,7 @@
             this.btnRef_23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_23.UseCompatibleTextRendering = true;
             this.btnRef_23.UseVisualStyleBackColor = true;
-            this.btnRef_23.Click += new System.EventHandler(this.btnRef_23_Click);
+            this.btnRef_23.Click += new System.EventHandler(this.btnRef_2_Click);
             // 
             // btnRef_24
             // 
@@ -477,7 +477,7 @@
             this.btnRef_24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_24.UseCompatibleTextRendering = true;
             this.btnRef_24.UseVisualStyleBackColor = true;
-            this.btnRef_24.Click += new System.EventHandler(this.btnRef_24_Click);
+            this.btnRef_24.Click += new System.EventHandler(this.btnRef_2_Click);
             // 
             // btnRef_31
             // 
@@ -490,7 +490,7 @@
             this.btnRef_31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_31.UseCompatibleTextRendering = true;
             this.btnRef_31.UseVisualStyleBackColor = true;
-            this.btnRef_31.Click += new System.EventHandler(this.btnRef_31_Click);
+            this.btnRef_31.Click += new System.EventHandler(this.btnRef_3_Click);
             // 
             // btnRef_32
             // 
@@ -503,7 +503,7 @@
             this.btnRef_32.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_32.UseCompatibleTextRendering = true;
             this.btnRef_32.UseVisualStyleBackColor = true;
-            this.btnRef_32.Click += new System.EventHandler(this.btnRef_32_Click);
+            this.btnRef_32.Click += new System.EventHandler(this.btnRef_3_Click);
             // 
             // btnRef_33
             // 
@@ -516,7 +516,7 @@
             this.btnRef_33.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_33.UseCompatibleTextRendering = true;
             this.btnRef_33.UseVisualStyleBackColor = true;
-            this.btnRef_33.Click += new System.EventHandler(this.btnRef_33_Click);
+            this.btnRef_33.Click += new System.EventHandler(this.btnRef_3_Click);
             // 
             // btnRef_34
             // 
@@ -529,7 +529,7 @@
             this.btnRef_34.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_34.UseCompatibleTextRendering = true;
             this.btnRef_34.UseVisualStyleBackColor = true;
-            this.btnRef_34.Click += new System.EventHandler(this.btnRef_34_Click);
+            this.btnRef_34.Click += new System.EventHandler(this.btnRef_3_Click);
             // 
             // btnRef_41
             // 
@@ -542,7 +542,7 @@
             this.btnRef_41.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_41.UseCompatibleTextRendering = true;
             this.btnRef_41.UseVisualStyleBackColor = true;
-            this.btnRef_41.Click += new System.EventHandler(this.btnRef_41_Click);
+            this.btnRef_41.Click += new System.EventHandler(this.btnRef_4_Click);
             // 
             // btnRef_43
             // 
@@ -555,7 +555,7 @@
             this.btnRef_43.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_43.UseCompatibleTextRendering = true;
             this.btnRef_43.UseVisualStyleBackColor = true;
-            this.btnRef_43.Click += new System.EventHandler(this.btnRef_43_Click);
+            this.btnRef_43.Click += new System.EventHandler(this.btnRef_4_Click);
             // 
             // btnRef_42
             // 
@@ -568,7 +568,7 @@
             this.btnRef_42.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_42.UseCompatibleTextRendering = true;
             this.btnRef_42.UseVisualStyleBackColor = true;
-            this.btnRef_42.Click += new System.EventHandler(this.btnRef_42_Click);
+            this.btnRef_42.Click += new System.EventHandler(this.btnRef_4_Click);
             // 
             // btnRef_44
             // 
@@ -581,7 +581,7 @@
             this.btnRef_44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_44.UseCompatibleTextRendering = true;
             this.btnRef_44.UseVisualStyleBackColor = true;
-            this.btnRef_44.Click += new System.EventHandler(this.btnRef_44_Click);
+            this.btnRef_44.Click += new System.EventHandler(this.btnRef_4_Click);
             // 
             // btnRead
             // 

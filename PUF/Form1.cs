@@ -19,6 +19,7 @@ namespace PUF
     {
         private const int BLOCK_SIZE = 4;
         private const int CHART_UNIT = 5, CHART_LENGTH = 1025;
+        private Color BLUE = Color.FromArgb(52, 43, 134), YELLOW = Color.FromArgb(249, 253, 8);
         private delegate void Display();
         //讀取電路thread
         private SerialPort serialPort1 = new SerialPort();
@@ -28,8 +29,6 @@ namespace PUF
         private string actionClick = "";
         private int readCount = 0;
         //圖表變數
-        private Color cZero = Color.FromArgb(52, 43, 134), //藍色
-              cOne = Color.FromArgb(249, 253, 8); //黃色
         private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
         private int[] zeroCount = new int[BLOCK_SIZE];
         private int[] oneCount = new int[BLOCK_SIZE];
@@ -39,6 +38,8 @@ namespace PUF
         private int[] xValues = new int[CHART_LENGTH / CHART_UNIT];
         private int[][] yValues = new int[BLOCK_SIZE][];
         private int[][] chTotal = new int[BLOCK_SIZE][]; //暫存直方圖的數值陣列，防止yValues超出陣列上限
+        private Color cZero, cOne;
+        private Color[] cBit;
         //PUFRead方法的變數
         private Boolean PUFReadCheck = false;
         private int PUFReadComplete = 4105;
@@ -67,6 +68,8 @@ namespace PUF
             dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Enabled = false;
+            cZero = YELLOW; cOne = BLUE;
+            cBit = new Color[BLOCK_SIZE] { cZero, cOne, cZero, cOne };
             //小圖初始化
             refGrids = new DataGridView[] { refGridView1, refGridView2, refGridView3, refGridView4 };
             for (int i = 0; i < refGrids.Length; i++)
@@ -299,14 +302,23 @@ namespace PUF
                 foreach (DataPoint dp in bitSeries[i].Points) dp.XValue += ax.Interval / 2;
             }
         }
+        private void setBitMetric()
+        {
+            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
+            double onePercent = 1 - zeroPercent;
+            labZero.Text = "0: " + zeroPercent * 100 + " %";
+            labOne.Text = "1: " + onePercent * 100 + " %";
+            btnPUF.Text = "PUF";
+            btnRead.Text = "Read";
+        }
         private void displayChart()
         {
             for (int i = 0; i < yValues.Length; i++)
                 Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
             setChartData();
-            displayMapArray();
+            displayBitMap();
         }
-        private void displayMapArray()
+        private void displayBitMap()
         {
             int[] offsetX = new int[] { 0, 32, 0, 32 };
             int[] offsetY = new int[] { 0, 0, 32, 32 };
@@ -318,14 +330,14 @@ namespace PUF
                     {
                         if (bitArray[i][j] < refBitTh[i][0])
                         {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[0];
                             zeroCount[i]++;
                         }
                         else
                         {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[1];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[1];
                             oneCount[i]++;
                         }
                     }
@@ -333,426 +345,166 @@ namespace PUF
                     {
                         if (bitArray[i][j] < refBitTh[i][2])
                         {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[2];
                             zeroCount[i]++;
                         }
                         else
                         {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[3];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[3];
                             oneCount[i]++;
                         }
                     }
                 }
             }
-            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
-            double onePercent = 1 - zeroPercent;
-            labZero.Text = "0: " + zeroPercent * 100 + " %";
-            labOne.Text = "1: " + onePercent * 100 + " %";
-            btnPUF.Text = "PUF";
-            btnRead.Text = "Read";
+            setBitMetric();
+        }
+        private void changeBlock(int index, int offsetX, int offsetY)
+        {
+            for (int j = 0; j < bitArray[index].Length; j++)
+            {
+                if (bitArray[index][j] < refBitTh[index][1])
+                {
+                    if (bitArray[index][j] < refBitTh[index][0])
+                    {
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[0];
+                        zeroCount[index]++;
+                    }
+                    else
+                    {
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[1];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[1];
+                        oneCount[index]++;
+                    }
+                }
+                else
+                {
+                    if (bitArray[index][j] < refBitTh[index][2])
+                    {
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[2];
+                        zeroCount[index]++;
+                    }
+                    else
+                    {
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[3];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[3];
+                        oneCount[index]++;
+                    }
+                }
+            }
+            setBitMetric();
         }
 
-        private void txtRef_11_KeyDown(object sender, KeyEventArgs e)
+        private void txtRef_1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
                 int i = 0;
                 refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 0);
+                changeBlock(i, 0, 0);
             }
         }
-        private void txtRef_12_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 0;
-                refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 0);
-            }
-        }
-        private void txtRef_13_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 0;
-                refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 0);
-            }
-        }
-        private void txtRef_21_KeyDown(object sender, KeyEventArgs e)
+        private void txtRef_2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
                 int i = 1;
                 refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 0);
+                changeBlock(i, 32, 0);
             }
         }
-        private void txtRef_22_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 1;
-                refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 0);
-            }
-        }
-        private void txtRef_23_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 1;
-                refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 0);
-            }
-        }
-        private void txtRef_31_KeyDown(object sender, KeyEventArgs e)
+        private void txtRef_3_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
                 int i = 2;
                 refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 32);
+                changeBlock(i, 0, 32);
             }
         }
-        private void txtRef_32_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 2;
-                refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 32);
-            }
-        }
-        private void txtRef_33_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 2;
-                refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 0, 32);
-            }
-        }
-        private void txtRef_41_KeyDown(object sender, KeyEventArgs e)
+        private void txtRef_4_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
                 int i = 3;
                 refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 32);
+                changeBlock(i, 32, 32);
             }
         }
-        private void txtRef_42_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 3;
-                refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 32);
-            }
-        }
-        private void txtRef_43_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                int i = 3;
-                refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
-                zeroCount[i] = 0; oneCount[i] = 0;
-                displayMapArray(i, 32, 32);
-            }
-        }
-        private void btnRef_11_Click(object sender, EventArgs e)
+        private void btnRef_1_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_1();
-        }
-        private void btnRef_12_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_1();
-        }
-        private void btnRef_13_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_1();
-        }
-        private void btnRef_14_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
+            btn.Text = btn.Text == "1" ? "0" : "1";
             btnRef_1();
         }
         private void btnRef_1()
         {
-            Color[] color = new Color[4];
-            color[0] = btnRef_11.Text == "0" ? cZero : cOne;
-            color[1] = btnRef_12.Text == "0" ? cZero : cOne;
-            color[2] = btnRef_13.Text == "0" ? cZero : cOne;
-            color[3] = btnRef_14.Text == "0" ? cZero : cOne;
+            cBit[0] = btnRef_11.Text == "0" ? cZero : cOne;
+            cBit[1] = btnRef_12.Text == "0" ? cZero : cOne;
+            cBit[2] = btnRef_13.Text == "0" ? cZero : cOne;
+            cBit[3] = btnRef_14.Text == "0" ? cZero : cOne;
             int i = 0;
             refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
-            displayMapArray(i, 0, 0, color);
+            changeBlock(i, 0, 0);
         }
-        private void btnRef_21_Click(object sender, EventArgs e)
+        private void btnRef_2_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_2();
-        }
-        private void btnRef_22_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_2();
-        }
-
-        private void btnRef_23_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_2();
-        }
-
-        private void btnRef_24_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
+            btn.Text = btn.Text == "1" ? "0" : "1";
             btnRef_2();
         }
         private void btnRef_2()
         {
-            Color[] color = new Color[4];
-            color[0] = btnRef_21.Text == "0" ? cZero : cOne;
-            color[1] = btnRef_22.Text == "0" ? cZero : cOne;
-            color[2] = btnRef_23.Text == "0" ? cZero : cOne;
-            color[3] = btnRef_24.Text == "0" ? cZero : cOne;
+            cBit[0] = btnRef_21.Text == "0" ? cZero : cOne;
+            cBit[1] = btnRef_22.Text == "0" ? cZero : cOne;
+            cBit[2] = btnRef_23.Text == "0" ? cZero : cOne;
+            cBit[3] = btnRef_24.Text == "0" ? cZero : cOne;
             int i = 1;
             refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
-            displayMapArray(i, 32, 0, color);
+            changeBlock(i, 32, 0);
         }
-        private void btnRef_31_Click(object sender, EventArgs e)
+        private void btnRef_3_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_3();
-        }
-        private void btnRef_32_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_3();
-        }
-
-        private void btnRef_33_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_3();
-        }
-        private void btnRef_34_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
+            btn.Text = btn.Text == "1" ? "0" : "1";
             btnRef_3();
         }
         private void btnRef_3()
         {
-            Color[] color = new Color[4];
-            color[0] = btnRef_31.Text == "0" ? cZero : cOne;
-            color[1] = btnRef_32.Text == "0" ? cZero : cOne;
-            color[2] = btnRef_33.Text == "0" ? cZero : cOne;
-            color[3] = btnRef_34.Text == "0" ? cZero : cOne;
+            cBit[0] = btnRef_31.Text == "0" ? cZero : cOne;
+            cBit[1] = btnRef_32.Text == "0" ? cZero : cOne;
+            cBit[2] = btnRef_33.Text == "0" ? cZero : cOne;
+            cBit[3] = btnRef_34.Text == "0" ? cZero : cOne;
             int i = 2;
             refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
-            displayMapArray(i, 0, 32, color);
+            changeBlock(i, 0, 32);
         }
-        private void btnRef_41_Click(object sender, EventArgs e)
+        private void btnRef_4_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_4();
-        }
-        private void btnRef_42_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_4();
-        }
-        private void btnRef_43_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
-            btnRef_4();
-        }
-        private void btnRef_44_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn.Text == "1")
-                btn.Text = "0";
-            else
-                btn.Text = "1";
+            btn.Text = btn.Text == "1" ? "0" : "1";
             btnRef_4();
         }
         private void btnRef_4()
         {
-            Color[] color = new Color[4];
-            color[0] = btnRef_41.Text == "0" ? cZero : cOne;
-            color[1] = btnRef_42.Text == "0" ? cZero : cOne;
-            color[2] = btnRef_43.Text == "0" ? cZero : cOne;
-            color[3] = btnRef_44.Text == "0" ? cZero : cOne;
+            cBit[0] = btnRef_41.Text == "0" ? cZero : cOne;
+            cBit[1] = btnRef_42.Text == "0" ? cZero : cOne;
+            cBit[2] = btnRef_43.Text == "0" ? cZero : cOne;
+            cBit[3] = btnRef_44.Text == "0" ? cZero : cOne;
             int i = 3;
             refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
-            displayMapArray(i, 32, 32, color);
-        }
-        private void displayMapArray(int index, int offsetX, int offsetY)
-        {
-            for (int j = 0; j < bitArray[index].Length; j++)
-            {
-                if (bitArray[index][j] < refBitTh[index][1])
-                {
-                    if (bitArray[index][j] < refBitTh[index][0])
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                        zeroCount[index]++;
-                    }
-                    else
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                        oneCount[index]++;
-                    }
-                }
-                else
-                {
-                    if (bitArray[index][j] < refBitTh[index][2])
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = Color.FromArgb(52, 43, 134);
-                        zeroCount[index]++;
-                    }
-                    else
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = Color.FromArgb(249, 253, 8);
-                        oneCount[index]++;
-                    }
-                }
-            }
-            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
-            double onePercent = 1 - zeroPercent;
-            labZero.Text = "0: " + zeroPercent * 100 + " %";
-            labOne.Text = "1: " + onePercent * 100 + " %";
-            btnPUF.Text = "PUF";
-            btnRead.Text = "Read";
-        }
-
-        private void displayMapArray(int index, int offsetX, int offsetY, Color[] color)
-        {
-            for (int j = 0; j < bitArray[index].Length; j++)
-            {
-                if (bitArray[index][j] < refBitTh[index][1])
-                {
-                    if (bitArray[index][j] < refBitTh[index][0])
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = color[0];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = color[0];
-                        zeroCount[index]++;
-                    }
-                    else
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = color[1];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = color[1];
-                        oneCount[index]++;
-                    }
-                }
-                else
-                {
-                    if (bitArray[index][j] < refBitTh[index][2])
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = color[2];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = color[2];
-                        zeroCount[index]++;
-                    }
-                    else
-                    {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = color[3];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = color[3];
-                        oneCount[index]++;
-                    }
-                }
-            }
-            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
-            double onePercent = 1 - zeroPercent;
-            labZero.Text = "0: " + zeroPercent * 100 + " %";
-            labOne.Text = "1: " + onePercent * 100 + " %";
-            btnPUF.Text = "PUF";
-            btnRead.Text = "Read";
+            changeBlock(i, 32, 32);
         }
     }
 }
