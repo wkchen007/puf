@@ -28,11 +28,12 @@ namespace PUF
         private List<string> ExternalRead = new List<string>();
         private string actionClick = "";
         private int readCount = 0;
+        private int[][] ADC = new int[BLOCK_SIZE][]; //RRAM讀取電壓
+        private List<int[][]> ADCList = new List<int[][]>();
         //圖表變數
         private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
         private int[] zeroCount = new int[BLOCK_SIZE];
         private int[] oneCount = new int[BLOCK_SIZE];
-        private int[][] bitArray = new int[BLOCK_SIZE][];
         private Chart[] charts;
         private Series[] bitSeries = new Series[BLOCK_SIZE];
         private int[] xValues = new int[CHART_LENGTH / CHART_UNIT];
@@ -54,8 +55,8 @@ namespace PUF
         {
             InitializeComponent();
             //大圖初始化
-            for (int i = 0; i < bitArray.Length; i++)
-                bitArray[i] = new int[1024];
+            for (int i = 0; i < ADC.Length; i++)
+                ADC[i] = new int[1024];
             for (int i = 0; i < Col.Length; i++)
             {
                 this.Col[i] = new DataGridViewTextBoxColumn();
@@ -101,7 +102,7 @@ namespace PUF
             for (int i = 0; i < yValues.Length; i++)
             {
                 yValues[i] = new int[CHART_LENGTH / CHART_UNIT];
-                chTotal[i] = new int[1025 / CHART_UNIT]; //訊號最高值:1025
+                chTotal[i] = new int[1025 / CHART_UNIT]; //電壓最高值:1025
             }
             charts = new Chart[] { chart1, chart2, chart3, chart4 };
             for (int i = 0; i < charts.Length; i++)
@@ -169,9 +170,9 @@ namespace PUF
         {
             ExternalRead.Clear();
             PUFReadCheck = false;
-            for (int i = 0; i < bitArray.Length; i++)
+            for (int i = 0; i < ADC.Length; i++)
             {
-                Array.Clear(bitArray[i], 0, bitArray[i].Length);
+                Array.Clear(ADC[i], 0, ADC[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
                 Array.Clear(yValues[i], 0, yValues[i].Length);
             }
@@ -187,9 +188,9 @@ namespace PUF
         {
             ExternalRead.Clear();
             ExtReadCheck = false;
-            for (int i = 0; i < bitArray.Length; i++)
+            for (int i = 0; i < ADC.Length; i++)
             {
-                Array.Clear(bitArray[i], 0, bitArray[i].Length);
+                Array.Clear(ADC[i], 0, ADC[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
                 Array.Clear(yValues[i], 0, yValues[i].Length);
             }
@@ -256,6 +257,8 @@ namespace PUF
                             {
                                 ExtReadCheck = false;
                                 bitParse();
+                                //for (int i = 0; i < ADCList.Count; i++)
+                                //    Console.WriteLine(ADCList.Count + " " + string.Join(",", ADCList[i][3]));
                                 actionClick = "";
                                 this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
@@ -267,21 +270,27 @@ namespace PUF
         private void bitParse()
         {
             int[] numbers;
+            int[][] temp = new int[][] { new int[1024], new int[1024], new int[1024], new int[1024] };
             for (int i = 1; i < 1025; i++)
             {
                 //Console.Write(ExternalRead[i]);
                 numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-                bitArray[0][i - 1] = numbers[0];
-                bitArray[1][i - 1] = numbers[1];
-                bitArray[2][i - 1] = numbers[2];
-                bitArray[3][i - 1] = numbers[3];
+                ADC[0][i - 1] = numbers[0];
+                ADC[1][i - 1] = numbers[1];
+                ADC[2][i - 1] = numbers[2];
+                ADC[3][i - 1] = numbers[3];
+                temp[0][i - 1] = numbers[0];
+                temp[1][i - 1] = numbers[1];
+                temp[2][i - 1] = numbers[2];
+                temp[3][i - 1] = numbers[3];
             }
+            ADCList.Add(temp);
             //Console.WriteLine(readCount);
-            for (int i = 0; i < bitArray.Length; i++)
+            for (int i = 0; i < ADC.Length; i++)
             {
-                for (int j = 0; j < bitArray[i].Length; j++)
+                for (int j = 0; j < ADC[i].Length; j++)
                 {
-                    chTotal[i][bitArray[i][j] / CHART_UNIT]++;
+                    chTotal[i][ADC[i][j] / CHART_UNIT]++;
                 }
             }
         }
@@ -322,13 +331,13 @@ namespace PUF
         {
             int[] offsetX = new int[] { 0, 32, 0, 32 };
             int[] offsetY = new int[] { 0, 0, 32, 32 };
-            for (int i = 0; i < bitArray.Length; i++)
+            for (int i = 0; i < ADC.Length; i++)
             {
-                for (int j = 0; j < bitArray[i].Length; j++)
+                for (int j = 0; j < ADC[i].Length; j++)
                 {
-                    if (bitArray[i][j] < refBitTh[i][1])
+                    if (ADC[i][j] < refBitTh[i][1])
                     {
-                        if (bitArray[i][j] < refBitTh[i][0])
+                        if (ADC[i][j] < refBitTh[i][0])
                         {
                             refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
                             dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[0];
@@ -343,7 +352,7 @@ namespace PUF
                     }
                     else
                     {
-                        if (bitArray[i][j] < refBitTh[i][2])
+                        if (ADC[i][j] < refBitTh[i][2])
                         {
                             refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
                             dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[2];
@@ -362,11 +371,11 @@ namespace PUF
         }
         private void changeBlock(int index, int offsetX, int offsetY)
         {
-            for (int j = 0; j < bitArray[index].Length; j++)
+            for (int j = 0; j < ADC[index].Length; j++)
             {
-                if (bitArray[index][j] < refBitTh[index][1])
+                if (ADC[index][j] < refBitTh[index][1])
                 {
-                    if (bitArray[index][j] < refBitTh[index][0])
+                    if (ADC[index][j] < refBitTh[index][0])
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
                         dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[0];
@@ -381,7 +390,7 @@ namespace PUF
                 }
                 else
                 {
-                    if (bitArray[index][j] < refBitTh[index][2])
+                    if (ADC[index][j] < refBitTh[index][2])
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
                         dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[2];
