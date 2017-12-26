@@ -29,7 +29,9 @@ namespace PUF
         private string actionClick = "";
         private int readCount = 0;
         private int[][] ADC = new int[BLOCK_SIZE][]; //RRAM讀取電壓
-        private List<int[][]> ADCList = new List<int[][]>();
+        private List<int[][]> ADC_List = new List<int[][]>();
+        private int[][] ADC_Bit = new int[BLOCK_SIZE][]; //電壓轉換bit結果
+        private List<int[][]> ADC_Bit_List = new List<int[][]>();
         //圖表變數
         private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
         private int[] zeroCount = new int[BLOCK_SIZE];
@@ -40,7 +42,7 @@ namespace PUF
         private int[][] yValues = new int[BLOCK_SIZE][];
         private int[][] chTotal = new int[BLOCK_SIZE][]; //暫存直方圖的數值陣列，防止yValues超出陣列上限
         private Color cZero, cOne;
-        private Color[] cBit;
+        private Color[][] cBit = new Color[BLOCK_SIZE][];
         //PUFRead方法的變數
         private Boolean PUFReadCheck = false;
         private int PUFReadComplete = 4105;
@@ -56,7 +58,11 @@ namespace PUF
             InitializeComponent();
             //大圖初始化
             for (int i = 0; i < ADC.Length; i++)
+            {
                 ADC[i] = new int[1024];
+                ADC_Bit[i] = new int[1024];
+            }
+
             for (int i = 0; i < Col.Length; i++)
             {
                 this.Col[i] = new DataGridViewTextBoxColumn();
@@ -70,7 +76,8 @@ namespace PUF
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Enabled = false;
             cZero = YELLOW; cOne = BLUE;
-            cBit = new Color[BLOCK_SIZE] { cZero, cOne, cZero, cOne };
+            for (int i = 0; i < cBit.Length; i++)
+                cBit[i] = new Color[] { cZero, cOne, cZero, cOne };
             //小圖初始化
             refGrids = new DataGridView[] { refGridView1, refGridView2, refGridView3, refGridView4 };
             for (int i = 0; i < refGrids.Length; i++)
@@ -173,6 +180,7 @@ namespace PUF
             for (int i = 0; i < ADC.Length; i++)
             {
                 Array.Clear(ADC[i], 0, ADC[i].Length);
+                Array.Clear(ADC_Bit[i], 0, ADC_Bit[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
                 Array.Clear(yValues[i], 0, yValues[i].Length);
             }
@@ -191,6 +199,7 @@ namespace PUF
             for (int i = 0; i < ADC.Length; i++)
             {
                 Array.Clear(ADC[i], 0, ADC[i].Length);
+                Array.Clear(ADC_Bit[i], 0, ADC_Bit[i].Length);
                 Array.Clear(chTotal[i], 0, chTotal[i].Length);
                 Array.Clear(yValues[i], 0, yValues[i].Length);
             }
@@ -199,6 +208,33 @@ namespace PUF
             zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
             oneCount[0] = 0; oneCount[1] = 0; oneCount[2] = 0; oneCount[3] = 0;
             serialPort1.Write("r");
+        }
+        private void bitParse()
+        {
+            int[] numbers;
+            int[][] temp = new int[][] { new int[1024], new int[1024], new int[1024], new int[1024] };
+            for (int i = 1; i < 1025; i++)
+            {
+                //Console.Write(ExternalRead[i]);
+                numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+                ADC[0][i - 1] = numbers[0];
+                ADC[1][i - 1] = numbers[1];
+                ADC[2][i - 1] = numbers[2];
+                ADC[3][i - 1] = numbers[3];
+                temp[0][i - 1] = numbers[0];
+                temp[1][i - 1] = numbers[1];
+                temp[2][i - 1] = numbers[2];
+                temp[3][i - 1] = numbers[3];
+            }
+            ADC_List.Add(temp);
+            //Console.WriteLine(readCount);
+            for (int i = 0; i < ADC.Length; i++)
+            {
+                for (int j = 0; j < ADC[i].Length; j++)
+                {
+                    chTotal[i][ADC[i][j] / CHART_UNIT]++;
+                }
+            }
         }
         private void DoReceive()
         {
@@ -257,8 +293,6 @@ namespace PUF
                             {
                                 ExtReadCheck = false;
                                 bitParse();
-                                //for (int i = 0; i < ADCList.Count; i++)
-                                //    Console.WriteLine(ADCList.Count + " " + string.Join(",", ADCList[i][3]));
                                 actionClick = "";
                                 this.Invoke((MethodInvoker)delegate () { displayChart(); });
                             }
@@ -267,32 +301,57 @@ namespace PUF
                 }
             }
         }
-        private void bitParse()
+        private void displayChart()
         {
-            int[] numbers;
+            for (int i = 0; i < yValues.Length; i++)
+                Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
+            setChartData();
+            displayBitMap();
+        }
+        private void displayBitMap()
+        {
+            int[] offsetX = new int[] { 0, 32, 0, 32 };
+            int[] offsetY = new int[] { 0, 0, 32, 32 };
             int[][] temp = new int[][] { new int[1024], new int[1024], new int[1024], new int[1024] };
-            for (int i = 1; i < 1025; i++)
-            {
-                //Console.Write(ExternalRead[i]);
-                numbers = Regex.Matches(ExternalRead[i], "(-?[0-9]+)").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-                ADC[0][i - 1] = numbers[0];
-                ADC[1][i - 1] = numbers[1];
-                ADC[2][i - 1] = numbers[2];
-                ADC[3][i - 1] = numbers[3];
-                temp[0][i - 1] = numbers[0];
-                temp[1][i - 1] = numbers[1];
-                temp[2][i - 1] = numbers[2];
-                temp[3][i - 1] = numbers[3];
-            }
-            ADCList.Add(temp);
-            //Console.WriteLine(readCount);
             for (int i = 0; i < ADC.Length; i++)
             {
                 for (int j = 0; j < ADC[i].Length; j++)
                 {
-                    chTotal[i][ADC[i][j] / CHART_UNIT]++;
+                    if (ADC[i][j] < refBitTh[i][1])
+                    {
+                        if (ADC[i][j] < refBitTh[i][0])
+                        {
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[i][0];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[i][0];
+                            countBit(i, j, 0);
+                        }
+                        else
+                        {
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[i][1];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[i][1];
+                            countBit(i, j, 1);
+                        }
+                    }
+                    else
+                    {
+                        if (ADC[i][j] < refBitTh[i][2])
+                        {
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[i][2];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[i][2];
+                            countBit(i, j, 2);
+                        }
+                        else
+                        {
+                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[i][3];
+                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[i][3];
+                            countBit(i, j, 3);
+                        }
+                    }
                 }
             }
+            ADC_Bit[0].CopyTo(temp[0], 0); ADC_Bit[1].CopyTo(temp[1], 0); ADC_Bit[2].CopyTo(temp[2], 0); ADC_Bit[3].CopyTo(temp[3], 0);
+            ADC_Bit_List.Add(temp);
+            setBitMetric();
         }
         private void setChartData()
         {
@@ -319,55 +378,53 @@ namespace PUF
             labOne.Text = "1: " + onePercent * 100 + " %";
             btnPUF.Text = "PUF";
             btnRead.Text = "Read";
+            setRobustness();
         }
-        private void displayChart()
+        public int HammingDistance(string num_1, string num_2)
         {
-            for (int i = 0; i < yValues.Length; i++)
-                Array.Copy(chTotal[i], 0, yValues[i], 0, yValues[i].Length);
-            setChartData();
-            displayBitMap();
+            int ans = 0;
+            for (int i = 0; i < num_1.Length; i++)
+                if (num_1[i] != num_2[i])
+                    ans++;
+            return ans;
         }
-        private void displayBitMap()
+        private void setRobustness()
         {
-            int[] offsetX = new int[] { 0, 32, 0, 32 };
-            int[] offsetY = new int[] { 0, 0, 32, 32 };
-            for (int i = 0; i < ADC.Length; i++)
+            Console.Write(0 + " Bit: " + string.Join("", ADC_Bit[0]) + "\n");
+            for (int i = 0; i < ADC_Bit_List.Count; i++)
+                Console.Write(i + " Bit: " + string.Join("", ADC_Bit_List[i][0]) + "\n");
+            if (ADC_Bit_List.Count >= 2)
             {
-                for (int j = 0; j < ADC[i].Length; j++)
-                {
-                    if (ADC[i][j] < refBitTh[i][1])
-                    {
-                        if (ADC[i][j] < refBitTh[i][0])
-                        {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[0];
-                            zeroCount[i]++;
-                        }
-                        else
-                        {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[1];
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[1];
-                            oneCount[i]++;
-                        }
-                    }
-                    else
-                    {
-                        if (ADC[i][j] < refBitTh[i][2])
-                        {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[2];
-                            zeroCount[i]++;
-                        }
-                        else
-                        {
-                            refGrids[i].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[3];
-                            dataGridView1.Rows[offsetY[i] + j / 32].Cells[offsetX[i] + j % 32].Style.BackColor = cBit[3];
-                            oneCount[i]++;
-                        }
-                    }
-                }
+                string num_1 = string.Join("", ADC_Bit_List[ADC_Bit_List.Count - 1][0]);
+                string num_2 = string.Join("", ADC_Bit_List[ADC_Bit_List.Count - 2][0]);
+                int ans = HammingDistance(num_1, num_2);
+                Console.Write("ans:" + ans + "\n");
             }
-            setBitMetric();
+            /*
+            for (int i = 0; i < )
+            {
+
+            }
+            */
+            /*
+            if (ADC_List.Count == 1)
+                Console.Write(String.Join("", ADC_List[0][0]) + "\n");
+            if (ADC_List.Count == 2)
+                Console.Write(String.Join("", ADC_List[1][0]));
+            */
+        }
+        private void countBit(int index1, int index2, int span)
+        {
+            if (cBit[index1][span] == cZero)
+            {
+                zeroCount[index1]++;
+                ADC_Bit[index1][index2] = 0;
+            }
+            else
+            {
+                oneCount[index1]++;
+                ADC_Bit[index1][index2] = 1;
+            }
         }
         private void changeBlock(int index, int offsetX, int offsetY)
         {
@@ -377,30 +434,30 @@ namespace PUF
                 {
                     if (ADC[index][j] < refBitTh[index][0])
                     {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[0];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[0];
-                        zeroCount[index]++;
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][0];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][0];
+                        countBit(index, j, 0);
                     }
                     else
                     {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[1];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[1];
-                        oneCount[index]++;
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][1];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][1];
+                        countBit(index, j, 1);
                     }
                 }
                 else
                 {
                     if (ADC[index][j] < refBitTh[index][2])
                     {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[2];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[2];
-                        zeroCount[index]++;
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][2];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][2];
+                        countBit(index, j, 2);
                     }
                     else
                     {
-                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[3];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[3];
-                        oneCount[index]++;
+                        refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][3];
+                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][3];
+                        countBit(index, j, 3);
                     }
                 }
             }
@@ -455,11 +512,11 @@ namespace PUF
         }
         private void btnRef_1()
         {
-            cBit[0] = btnRef_11.Text == "0" ? cZero : cOne;
-            cBit[1] = btnRef_12.Text == "0" ? cZero : cOne;
-            cBit[2] = btnRef_13.Text == "0" ? cZero : cOne;
-            cBit[3] = btnRef_14.Text == "0" ? cZero : cOne;
             int i = 0;
+            cBit[i][0] = btnRef_11.Text == "0" ? cZero : cOne;
+            cBit[i][1] = btnRef_12.Text == "0" ? cZero : cOne;
+            cBit[i][2] = btnRef_13.Text == "0" ? cZero : cOne;
+            cBit[i][3] = btnRef_14.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
             changeBlock(i, 0, 0);
@@ -472,11 +529,11 @@ namespace PUF
         }
         private void btnRef_2()
         {
-            cBit[0] = btnRef_21.Text == "0" ? cZero : cOne;
-            cBit[1] = btnRef_22.Text == "0" ? cZero : cOne;
-            cBit[2] = btnRef_23.Text == "0" ? cZero : cOne;
-            cBit[3] = btnRef_24.Text == "0" ? cZero : cOne;
             int i = 1;
+            cBit[i][0] = btnRef_21.Text == "0" ? cZero : cOne;
+            cBit[i][1] = btnRef_22.Text == "0" ? cZero : cOne;
+            cBit[i][2] = btnRef_23.Text == "0" ? cZero : cOne;
+            cBit[i][3] = btnRef_24.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
             changeBlock(i, 32, 0);
@@ -489,11 +546,11 @@ namespace PUF
         }
         private void btnRef_3()
         {
-            cBit[0] = btnRef_31.Text == "0" ? cZero : cOne;
-            cBit[1] = btnRef_32.Text == "0" ? cZero : cOne;
-            cBit[2] = btnRef_33.Text == "0" ? cZero : cOne;
-            cBit[3] = btnRef_34.Text == "0" ? cZero : cOne;
             int i = 2;
+            cBit[i][0] = btnRef_31.Text == "0" ? cZero : cOne;
+            cBit[i][1] = btnRef_32.Text == "0" ? cZero : cOne;
+            cBit[i][2] = btnRef_33.Text == "0" ? cZero : cOne;
+            cBit[i][3] = btnRef_34.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
             changeBlock(i, 0, 32);
@@ -506,11 +563,11 @@ namespace PUF
         }
         private void btnRef_4()
         {
-            cBit[0] = btnRef_41.Text == "0" ? cZero : cOne;
-            cBit[1] = btnRef_42.Text == "0" ? cZero : cOne;
-            cBit[2] = btnRef_43.Text == "0" ? cZero : cOne;
-            cBit[3] = btnRef_44.Text == "0" ? cZero : cOne;
             int i = 3;
+            cBit[i][0] = btnRef_41.Text == "0" ? cZero : cOne;
+            cBit[i][1] = btnRef_42.Text == "0" ? cZero : cOne;
+            cBit[i][2] = btnRef_43.Text == "0" ? cZero : cOne;
+            cBit[i][3] = btnRef_44.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
             changeBlock(i, 32, 32);
