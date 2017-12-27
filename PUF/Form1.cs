@@ -50,7 +50,7 @@ namespace PUF
         private Boolean ExtReadCheck = false;
         private int ExtReadComplete = 2055;
         //bit reference變數
-        private int bitTh1 = 124, bitTh2 = 128, bitTh3 = 133;
+        private int bitTh1 = 70, bitTh2 = 70, bitTh3 = 70;
         private DataGridView[] refGrids;
         private int[][] refBitTh = new int[BLOCK_SIZE][];
         public Form1()
@@ -77,7 +77,7 @@ namespace PUF
             dataGridView1.Enabled = false;
             cZero = YELLOW; cOne = BLUE;
             for (int i = 0; i < cBit.Length; i++)
-                cBit[i] = new Color[] { cZero, cOne, cZero, cOne };
+                cBit[i] = new Color[] { cOne, cOne, cZero, cZero };
             //小圖初始化
             refGrids = new DataGridView[] { refGridView1, refGridView2, refGridView3, refGridView4 };
             for (int i = 0; i < refGrids.Length; i++)
@@ -390,28 +390,21 @@ namespace PUF
         }
         private void setRobustness()
         {
-            Console.Write(0 + " Bit: " + string.Join("", ADC_Bit[0]) + "\n");
-            for (int i = 0; i < ADC_Bit_List.Count; i++)
-                Console.Write(i + " Bit: " + string.Join("", ADC_Bit_List[i][0]) + "\n");
             if (ADC_Bit_List.Count >= 2)
             {
-                string num_1 = string.Join("", ADC_Bit_List[ADC_Bit_List.Count - 1][0]);
-                string num_2 = string.Join("", ADC_Bit_List[ADC_Bit_List.Count - 2][0]);
-                int ans = HammingDistance(num_1, num_2);
-                Console.Write("ans:" + ans + "\n");
+                double total = 0;
+                string num_1 = string.Join("", Array.ConvertAll(ADC_Bit_List[0], delegate (int[] x) { return string.Join("", x); }));
+                for (int i = 1; i < ADC_Bit_List.Count; i++)
+                {
+                    string num_2 = string.Join("", Array.ConvertAll(ADC_Bit_List[i], delegate (int[] x) { return string.Join("", x); }));
+                    double ans = Math.Round(HammingDistance(num_1, num_2) / 4096.0, 4);
+                    //Console.Write(0 + " " + i + " " + ans + "\n");
+                    total += ans;
+                }
+                double HD_intra = Math.Round(total / (ADC_Bit_List.Count - 1), 4);
+                //Console.Write("Robust: " + HD_intra * 100 + " %" + "\n");
+                labRob.Text = HD_intra * 100 + " %";
             }
-            /*
-            for (int i = 0; i < )
-            {
-
-            }
-            */
-            /*
-            if (ADC_List.Count == 1)
-                Console.Write(String.Join("", ADC_List[0][0]) + "\n");
-            if (ADC_List.Count == 2)
-                Console.Write(String.Join("", ADC_List[1][0]));
-            */
         }
         private void countBit(int index1, int index2, int span)
         {
@@ -426,8 +419,9 @@ namespace PUF
                 ADC_Bit[index1][index2] = 1;
             }
         }
-        private void changeBlock(int index, int offsetX, int offsetY)
+        private void changeBlock(int index, int offX, int offY)
         {
+            //Change randomness metric.
             for (int j = 0; j < ADC[index].Length; j++)
             {
                 if (ADC[index][j] < refBitTh[index][1])
@@ -435,13 +429,13 @@ namespace PUF
                     if (ADC[index][j] < refBitTh[index][0])
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][0];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][0];
+                        dataGridView1.Rows[offY + j / 32].Cells[offX + j % 32].Style.BackColor = cBit[index][0];
                         countBit(index, j, 0);
                     }
                     else
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][1];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][1];
+                        dataGridView1.Rows[offY + j / 32].Cells[offX + j % 32].Style.BackColor = cBit[index][1];
                         countBit(index, j, 1);
                     }
                 }
@@ -450,15 +444,69 @@ namespace PUF
                     if (ADC[index][j] < refBitTh[index][2])
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][2];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][2];
+                        dataGridView1.Rows[offY + j / 32].Cells[offX + j % 32].Style.BackColor = cBit[index][2];
                         countBit(index, j, 2);
                     }
                     else
                     {
                         refGrids[index].Rows[j / 32].Cells[j % 32].Style.BackColor = cBit[index][3];
-                        dataGridView1.Rows[offsetY + j / 32].Cells[offsetX + j % 32].Style.BackColor = cBit[index][3];
+                        dataGridView1.Rows[offY + j / 32].Cells[offX + j % 32].Style.BackColor = cBit[index][3];
                         countBit(index, j, 3);
                     }
+                }
+            }
+            //Change robustness metric.
+            if (ADC_List.Count >= 2)
+            {
+                int[] offsetX = new int[] { 0, 32, 0, 32 };
+                int[] offsetY = new int[] { 0, 0, 32, 32 };
+                for (int k = 0; k < ADC_List.Count; k++)
+                {
+                    int[][] ADC1 = ADC_List[k];
+                    int[][] temp = new int[][] { new int[1024], new int[1024], new int[1024], new int[1024] };
+                    for (int i = 0; i < ADC1.Length; i++)
+                    {
+                        for (int j = 0; j < ADC1[i].Length; j++)
+                        {
+                            if (ADC1[i][j] < refBitTh[i][1])
+                            {
+                                if (ADC1[i][j] < refBitTh[i][0])
+                                {
+                                    if (cBit[i][0] == cZero)
+                                        ADC_Bit[i][j] = 0;
+                                    else
+                                        ADC_Bit[i][j] = 1;
+                                }
+                                else
+                                {
+                                    if (cBit[i][1] == cZero)
+                                        ADC_Bit[i][j] = 0;
+                                    else
+                                        ADC_Bit[i][j] = 1;
+                                }
+                            }
+                            else
+                            {
+                                if (ADC1[i][j] < refBitTh[i][2])
+                                {
+                                    if (cBit[i][2] == cZero)
+                                        ADC_Bit[i][j] = 0;
+                                    else
+                                        ADC_Bit[i][j] = 1;
+                                }
+                                else
+                                {
+                                    if (cBit[i][3] == cZero)
+                                        ADC_Bit[i][j] = 0;
+                                    else
+                                        ADC_Bit[i][j] = 1;
+                                }
+                            }
+                        }
+                    }
+                    ADC_Bit[0].CopyTo(temp[0], 0); ADC_Bit[1].CopyTo(temp[1], 0); ADC_Bit[2].CopyTo(temp[2], 0); ADC_Bit[3].CopyTo(temp[3], 0);
+                    ADC_Bit_List.Add(temp);
+                    //Console.Write("Rob" + k + string.Join("", ADC_Bit_List[k][3]) + "\n");
                 }
             }
             setBitMetric();
@@ -471,6 +519,7 @@ namespace PUF
                 int i = 0;
                 refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
+                ADC_Bit_List.Clear();
                 changeBlock(i, 0, 0);
             }
         }
@@ -481,6 +530,7 @@ namespace PUF
                 int i = 1;
                 refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
+                ADC_Bit_List.Clear();
                 changeBlock(i, 32, 0);
             }
         }
@@ -491,6 +541,7 @@ namespace PUF
                 int i = 2;
                 refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
+                ADC_Bit_List.Clear();
                 changeBlock(i, 0, 32);
             }
         }
@@ -501,6 +552,7 @@ namespace PUF
                 int i = 3;
                 refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
                 zeroCount[i] = 0; oneCount[i] = 0;
+                ADC_Bit_List.Clear();
                 changeBlock(i, 32, 32);
             }
         }
@@ -512,6 +564,7 @@ namespace PUF
         }
         private void btnRef_1()
         {
+            //Console.Write("Ref " + string.Join("", ADC_Bit_List[0][3]) + "\n");
             int i = 0;
             cBit[i][0] = btnRef_11.Text == "0" ? cZero : cOne;
             cBit[i][1] = btnRef_12.Text == "0" ? cZero : cOne;
@@ -519,6 +572,7 @@ namespace PUF
             cBit[i][3] = btnRef_14.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_11.Text); refBitTh[i][1] = int.Parse(txtRef_12.Text); refBitTh[i][2] = int.Parse(txtRef_13.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
+            ADC_Bit_List.Clear();
             changeBlock(i, 0, 0);
         }
         private void btnRef_2_Click(object sender, EventArgs e)
@@ -536,6 +590,7 @@ namespace PUF
             cBit[i][3] = btnRef_24.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_21.Text); refBitTh[i][1] = int.Parse(txtRef_22.Text); refBitTh[i][2] = int.Parse(txtRef_23.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
+            ADC_Bit_List.Clear();
             changeBlock(i, 32, 0);
         }
         private void btnRef_3_Click(object sender, EventArgs e)
@@ -553,6 +608,7 @@ namespace PUF
             cBit[i][3] = btnRef_34.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_31.Text); refBitTh[i][1] = int.Parse(txtRef_32.Text); refBitTh[i][2] = int.Parse(txtRef_33.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
+            ADC_Bit_List.Clear();
             changeBlock(i, 0, 32);
         }
         private void btnRef_4_Click(object sender, EventArgs e)
@@ -570,6 +626,7 @@ namespace PUF
             cBit[i][3] = btnRef_44.Text == "0" ? cZero : cOne;
             refBitTh[i][0] = int.Parse(txtRef_41.Text); refBitTh[i][1] = int.Parse(txtRef_42.Text); refBitTh[i][2] = int.Parse(txtRef_43.Text);
             zeroCount[i] = 0; oneCount[i] = 0;
+            ADC_Bit_List.Clear();
             changeBlock(i, 32, 32);
         }
     }

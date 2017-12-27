@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -78,6 +78,9 @@
             this.btnRef_42 = new System.Windows.Forms.Button();
             this.btnRef_44 = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labRob = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -134,7 +137,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(43)))), ((int)(((byte)(134)))));
-            this.label3.Location = new System.Drawing.Point(662, 360);
+            this.label3.Location = new System.Drawing.Point(662, 300);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 50);
             this.label3.TabIndex = 11;
@@ -142,7 +145,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(253)))), ((int)(((byte)(8)))));
-            this.label4.Location = new System.Drawing.Point(662, 460);
+            this.label4.Location = new System.Drawing.Point(662, 360);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 50);
             this.label4.TabIndex = 12;
@@ -150,7 +153,7 @@
             // labZero
             // 
             this.labZero.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labZero.Location = new System.Drawing.Point(712, 460);
+            this.labZero.Location = new System.Drawing.Point(712, 360);
             this.labZero.Name = "labZero";
             this.labZero.Size = new System.Drawing.Size(200, 54);
             this.labZero.TabIndex = 13;
@@ -160,7 +163,7 @@
             // labOne
             // 
             this.labOne.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labOne.Location = new System.Drawing.Point(712, 360);
+            this.labOne.Location = new System.Drawing.Point(712, 300);
             this.labOne.Name = "labOne";
             this.labOne.Size = new System.Drawing.Size(200, 56);
             this.labOne.TabIndex = 14;
@@ -171,7 +174,7 @@
             // 
             this.btnPUF.Enabled = false;
             this.btnPUF.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnPUF.Location = new System.Drawing.Point(662, 60);
+            this.btnPUF.Location = new System.Drawing.Point(700, 60);
             this.btnPUF.Name = "btnPUF";
             this.btnPUF.Size = new System.Drawing.Size(200, 60);
             this.btnPUF.TabIndex = 17;
@@ -181,8 +184,8 @@
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(350, 850);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
@@ -191,8 +194,8 @@
             // 
             // chart2
             // 
-            chartArea6.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea6);
+            chartArea2.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(350, 1300);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
@@ -201,8 +204,8 @@
             // 
             // chart3
             // 
-            chartArea7.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea7);
+            chartArea3.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.Location = new System.Drawing.Point(350, 1750);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
@@ -211,8 +214,8 @@
             // 
             // chart4
             // 
-            chartArea8.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea8);
+            chartArea4.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea4);
             this.chart4.Location = new System.Drawing.Point(350, 2200);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
@@ -382,7 +385,7 @@
             this.btnRef_11.Name = "btnRef_11";
             this.btnRef_11.Size = new System.Drawing.Size(25, 40);
             this.btnRef_11.TabIndex = 54;
-            this.btnRef_11.Text = "0";
+            this.btnRef_11.Text = "1";
             this.btnRef_11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_11.UseCompatibleTextRendering = true;
             this.btnRef_11.UseVisualStyleBackColor = true;
@@ -421,7 +424,7 @@
             this.btnRef_14.Name = "btnRef_14";
             this.btnRef_14.Size = new System.Drawing.Size(25, 40);
             this.btnRef_14.TabIndex = 57;
-            this.btnRef_14.Text = "1";
+            this.btnRef_14.Text = "0";
             this.btnRef_14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_14.UseCompatibleTextRendering = true;
             this.btnRef_14.UseVisualStyleBackColor = true;
@@ -434,7 +437,7 @@
             this.btnRef_21.Name = "btnRef_21";
             this.btnRef_21.Size = new System.Drawing.Size(25, 40);
             this.btnRef_21.TabIndex = 58;
-            this.btnRef_21.Text = "0";
+            this.btnRef_21.Text = "1";
             this.btnRef_21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_21.UseCompatibleTextRendering = true;
             this.btnRef_21.UseVisualStyleBackColor = true;
@@ -473,7 +476,7 @@
             this.btnRef_24.Name = "btnRef_24";
             this.btnRef_24.Size = new System.Drawing.Size(25, 40);
             this.btnRef_24.TabIndex = 61;
-            this.btnRef_24.Text = "1";
+            this.btnRef_24.Text = "0";
             this.btnRef_24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_24.UseCompatibleTextRendering = true;
             this.btnRef_24.UseVisualStyleBackColor = true;
@@ -486,7 +489,7 @@
             this.btnRef_31.Name = "btnRef_31";
             this.btnRef_31.Size = new System.Drawing.Size(25, 40);
             this.btnRef_31.TabIndex = 62;
-            this.btnRef_31.Text = "0";
+            this.btnRef_31.Text = "1";
             this.btnRef_31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_31.UseCompatibleTextRendering = true;
             this.btnRef_31.UseVisualStyleBackColor = true;
@@ -525,7 +528,7 @@
             this.btnRef_34.Name = "btnRef_34";
             this.btnRef_34.Size = new System.Drawing.Size(25, 40);
             this.btnRef_34.TabIndex = 65;
-            this.btnRef_34.Text = "1";
+            this.btnRef_34.Text = "0";
             this.btnRef_34.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_34.UseCompatibleTextRendering = true;
             this.btnRef_34.UseVisualStyleBackColor = true;
@@ -538,7 +541,7 @@
             this.btnRef_41.Name = "btnRef_41";
             this.btnRef_41.Size = new System.Drawing.Size(25, 40);
             this.btnRef_41.TabIndex = 66;
-            this.btnRef_41.Text = "0";
+            this.btnRef_41.Text = "1";
             this.btnRef_41.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_41.UseCompatibleTextRendering = true;
             this.btnRef_41.UseVisualStyleBackColor = true;
@@ -577,7 +580,7 @@
             this.btnRef_44.Name = "btnRef_44";
             this.btnRef_44.Size = new System.Drawing.Size(25, 40);
             this.btnRef_44.TabIndex = 69;
-            this.btnRef_44.Text = "1";
+            this.btnRef_44.Text = "0";
             this.btnRef_44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRef_44.UseCompatibleTextRendering = true;
             this.btnRef_44.UseVisualStyleBackColor = true;
@@ -587,7 +590,7 @@
             // 
             this.btnRead.Enabled = false;
             this.btnRead.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRead.Location = new System.Drawing.Point(662, 150);
+            this.btnRead.Location = new System.Drawing.Point(700, 150);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(200, 60);
             this.btnRead.TabIndex = 70;
@@ -595,12 +598,45 @@
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(700, 240);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(200, 56);
+            this.label2.TabIndex = 71;
+            this.label2.Text = "Randomness";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Location = new System.Drawing.Point(700, 420);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(200, 56);
+            this.label5.TabIndex = 72;
+            this.label5.Text = "Robustness";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labRob
+            // 
+            this.labRob.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labRob.Location = new System.Drawing.Point(750, 480);
+            this.labRob.Name = "labRob";
+            this.labRob.Size = new System.Drawing.Size(200, 54);
+            this.labRob.TabIndex = 73;
+            this.labRob.Text = "N/A";
+            this.labRob.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1035, 812);
+            this.Controls.Add(this.labRob);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnRead);
             this.Controls.Add(this.btnRef_44);
             this.Controls.Add(this.btnRef_42);
@@ -713,6 +749,9 @@
         private System.Windows.Forms.Button btnRef_42;
         private System.Windows.Forms.Button btnRef_44;
         private System.Windows.Forms.Button btnRead;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labRob;
     }
 }
 
