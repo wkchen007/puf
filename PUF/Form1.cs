@@ -370,16 +370,6 @@ namespace PUF
                 foreach (DataPoint dp in bitSeries[i].Points) dp.XValue += ax.Interval / 2;
             }
         }
-        private void setBitMetric()
-        {
-            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
-            double onePercent = 1 - zeroPercent;
-            labZero.Text = "0: " + zeroPercent * 100 + " %";
-            labOne.Text = "1: " + onePercent * 100 + " %";
-            btnPUF.Text = "PUF";
-            btnRead.Text = "Read";
-            setRobustness();
-        }
         public int HammingDistance(string num_1, string num_2)
         {
             int ans = 0;
@@ -387,6 +377,20 @@ namespace PUF
                 if (num_1[i] != num_2[i])
                     ans++;
             return ans;
+        }
+        private void setBitMetric()
+        {
+            setRandomness();
+            setRobustness();
+            btnPUF.Text = "PUF";
+            btnRead.Text = "Read";
+        }
+        private void setRandomness()
+        {
+            double zeroPercent = Math.Round((zeroCount[0] + zeroCount[1] + zeroCount[2] + zeroCount[3]) / 4096.0, 4);
+            double onePercent = 1 - zeroPercent;
+            labZero.Text = "0: " + zeroPercent * 100 + " %";
+            labOne.Text = "1: " + onePercent * 100 + " %";
         }
         private void setRobustness()
         {
