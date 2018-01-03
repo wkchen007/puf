@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -137,7 +137,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(43)))), ((int)(((byte)(134)))));
-            this.label3.Location = new System.Drawing.Point(662, 300);
+            this.label3.Location = new System.Drawing.Point(662, 210);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 50);
             this.label3.TabIndex = 11;
@@ -145,7 +145,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(253)))), ((int)(((byte)(8)))));
-            this.label4.Location = new System.Drawing.Point(662, 360);
+            this.label4.Location = new System.Drawing.Point(662, 270);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 50);
             this.label4.TabIndex = 12;
@@ -153,7 +153,7 @@
             // labZero
             // 
             this.labZero.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labZero.Location = new System.Drawing.Point(712, 360);
+            this.labZero.Location = new System.Drawing.Point(712, 270);
             this.labZero.Name = "labZero";
             this.labZero.Size = new System.Drawing.Size(200, 54);
             this.labZero.TabIndex = 13;
@@ -163,7 +163,7 @@
             // labOne
             // 
             this.labOne.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labOne.Location = new System.Drawing.Point(712, 300);
+            this.labOne.Location = new System.Drawing.Point(712, 210);
             this.labOne.Name = "labOne";
             this.labOne.Size = new System.Drawing.Size(200, 56);
             this.labOne.TabIndex = 14;
@@ -184,8 +184,8 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
             this.chart1.Location = new System.Drawing.Point(350, 850);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
@@ -194,8 +194,8 @@
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea2);
+            chartArea10.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea10);
             this.chart2.Location = new System.Drawing.Point(350, 1300);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
@@ -204,8 +204,8 @@
             // 
             // chart3
             // 
-            chartArea3.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea3);
+            chartArea11.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea11);
             this.chart3.Location = new System.Drawing.Point(350, 1750);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
@@ -214,8 +214,8 @@
             // 
             // chart4
             // 
-            chartArea4.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea4);
+            chartArea12.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea12);
             this.chart4.Location = new System.Drawing.Point(350, 2200);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
@@ -590,7 +590,7 @@
             // 
             this.btnRead.Enabled = false;
             this.btnRead.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRead.Location = new System.Drawing.Point(700, 150);
+            this.btnRead.Location = new System.Drawing.Point(700, 60);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(200, 60);
             this.btnRead.TabIndex = 70;
@@ -601,7 +601,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(700, 240);
+            this.label2.Location = new System.Drawing.Point(700, 150);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(200, 56);
             this.label2.TabIndex = 71;
@@ -611,7 +611,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(700, 420);
+            this.label5.Location = new System.Drawing.Point(700, 330);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(200, 56);
             this.label5.TabIndex = 72;
@@ -621,7 +621,7 @@
             // labRob
             // 
             this.labRob.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labRob.Location = new System.Drawing.Point(750, 480);
+            this.labRob.Location = new System.Drawing.Point(750, 390);
             this.labRob.Name = "labRob";
             this.labRob.Size = new System.Drawing.Size(200, 54);
             this.labRob.TabIndex = 73;

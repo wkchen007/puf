@@ -56,6 +56,7 @@ namespace PUF
         public Form1()
         {
             InitializeComponent();
+            btnPUF.Visible = false; //為了展示，暫時隱藏按鈕。
             //大圖初始化
             for (int i = 0; i < ADC.Length; i++)
             {
@@ -156,7 +157,7 @@ namespace PUF
                 serialPort1.StopBits = StopBits.One;
                 serialPort1.Open();
                 serialPort1.DiscardInBuffer();
-                btnPUF.Enabled = true;
+                //btnPUF.Enabled = true;
                 btnRead.Enabled = true;
                 btnCom.Text = "Close";
                 receiving = true;
@@ -168,7 +169,7 @@ namespace PUF
             {
                 receiving = false;
                 serialPort1.Close();
-                btnPUF.Enabled = false;
+                //btnPUF.Enabled = false;
                 btnRead.Enabled = false;
                 btnCom.Text = "Open";
             }
