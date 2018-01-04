@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,9 @@ namespace PUF
         private const int BLOCK_SIZE = 4;
         private const int CHART_UNIT = 5, CHART_LENGTH = 1025;
         private Color BLUE = Color.FromArgb(52, 43, 134), YELLOW = Color.FromArgb(249, 253, 8);
+        private string folder_path = "PUF_result";
         private delegate void Display();
+        private string deviceName = "";
         //讀取電路thread
         private SerialPort serialPort1 = new SerialPort();
         private Boolean receiving;
@@ -32,6 +35,7 @@ namespace PUF
         private List<int[][]> ADC_List = new List<int[][]>();
         private int[][] ADC_Bit = new int[BLOCK_SIZE][]; //電壓轉換bit結果
         private List<int[][]> ADC_Bit_List = new List<int[][]>();
+        private Boolean UniCheck = false;
         //圖表變數
         private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
         private int[] zeroCount = new int[BLOCK_SIZE];
@@ -164,6 +168,7 @@ namespace PUF
                 receiveThread = new Thread(DoReceive);
                 receiveThread.IsBackground = true;
                 receiveThread.Start();
+                deviceName = serialPort1.PortName;
             }
             else
             {
@@ -172,6 +177,7 @@ namespace PUF
                 //btnPUF.Enabled = false;
                 btnRead.Enabled = false;
                 btnCom.Text = "Open";
+                deviceName = "";
             }
         }
         private void btnPUF_Click(object sender, EventArgs e)
@@ -382,6 +388,7 @@ namespace PUF
         private void setBitMetric()
         {
             setRandomness();
+            setUniqueness();
             setRobustness();
             btnPUF.Text = "PUF";
             btnRead.Text = "Read";
@@ -392,6 +399,19 @@ namespace PUF
             double onePercent = 1 - zeroPercent;
             labZero.Text = "0: " + zeroPercent * 100 + " %";
             labOne.Text = "1: " + onePercent * 100 + " %";
+        }
+        private void setUniqueness()
+        {
+            if (UniCheck)
+            {
+                string[] lines = new string[BLOCK_SIZE];
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string str = string.Join(",", ADC_Bit[i]);
+                    lines[i] = str;
+                }
+                File.WriteAllLines(folder_path + string.Format(@"\{0}_{1}.txt", deviceName, DateTime.Now.ToString("yyyyMMddHHmmss")), lines);
+            }
         }
         private void setRobustness()
         {
@@ -559,6 +579,30 @@ namespace PUF
                 zeroCount[i] = 0; oneCount[i] = 0;
                 ADC_Bit_List.Clear();
                 changeBlock(i, 32, 32);
+            }
+        }
+        private void labUniOn_Click(object sender, EventArgs e)
+        {
+            if (labUniOn.ForeColor == Color.Gray)
+            {
+                if (!Directory.Exists(folder_path))
+                {
+                    try
+                    {
+                        DirectoryInfo di = Directory.CreateDirectory(folder_path);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("The process failed: {0}", ex.ToString());
+                    }
+                }
+                UniCheck = true;
+                labUniOn.ForeColor = Color.Black;
+            }
+            else
+            {
+                UniCheck = false;
+                labUniOn.ForeColor = Color.Gray;
             }
         }
         private void btnRef_1_Click(object sender, EventArgs e)

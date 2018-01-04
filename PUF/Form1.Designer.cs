@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -79,8 +79,10 @@
             this.btnRef_44 = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labUniOn = new System.Windows.Forms.Label();
             this.labRob = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labUni = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -184,8 +186,8 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
             this.chart1.Location = new System.Drawing.Point(350, 850);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
@@ -194,8 +196,8 @@
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea2);
+            chartArea10.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea10);
             this.chart2.Location = new System.Drawing.Point(350, 1300);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
@@ -204,8 +206,8 @@
             // 
             // chart3
             // 
-            chartArea3.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea3);
+            chartArea11.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea11);
             this.chart3.Location = new System.Drawing.Point(350, 1750);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
@@ -214,8 +216,8 @@
             // 
             // chart4
             // 
-            chartArea4.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea4);
+            chartArea12.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea12);
             this.chart4.Location = new System.Drawing.Point(350, 2200);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
@@ -608,25 +610,47 @@
             this.label2.Text = "Randomness";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // labUniOn
             // 
-            this.label5.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(700, 330);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(200, 56);
-            this.label5.TabIndex = 72;
-            this.label5.Text = "Robustness";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labUniOn.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labUniOn.ForeColor = System.Drawing.Color.Gray;
+            this.labUniOn.Location = new System.Drawing.Point(700, 330);
+            this.labUniOn.Name = "labUniOn";
+            this.labUniOn.Size = new System.Drawing.Size(200, 56);
+            this.labUniOn.TabIndex = 72;
+            this.labUniOn.Text = "Uniqueness";
+            this.labUniOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labUniOn.Click += new System.EventHandler(this.labUniOn_Click);
             // 
             // labRob
             // 
             this.labRob.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labRob.Location = new System.Drawing.Point(750, 390);
+            this.labRob.Location = new System.Drawing.Point(750, 540);
             this.labRob.Name = "labRob";
             this.labRob.Size = new System.Drawing.Size(200, 54);
             this.labRob.TabIndex = 73;
             this.labRob.Text = "N/A";
             this.labRob.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.Location = new System.Drawing.Point(700, 480);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(200, 56);
+            this.label6.TabIndex = 74;
+            this.label6.Text = "Robustness";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labUni
+            // 
+            this.labUni.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labUni.Location = new System.Drawing.Point(750, 390);
+            this.labUni.Name = "labUni";
+            this.labUni.Size = new System.Drawing.Size(200, 54);
+            this.labUni.TabIndex = 75;
+            this.labUni.Text = "N/A";
+            this.labUni.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -634,8 +658,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1035, 812);
+            this.Controls.Add(this.labUni);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.labRob);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labUniOn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnRead);
             this.Controls.Add(this.btnRef_44);
@@ -750,8 +776,10 @@
         private System.Windows.Forms.Button btnRef_44;
         private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labUniOn;
         private System.Windows.Forms.Label labRob;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labUni;
     }
 }
 
