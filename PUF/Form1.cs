@@ -416,50 +416,58 @@ namespace PUF
                 //取最近一次log
                 DirectoryInfo dir = new DirectoryInfo(folder_path);
                 var prefixes = dir.GetFiles("COM*.txt").GroupBy(x => x.Name.Split('_')[0]).Select(y => new { Prefix = y.Key, Count = y.Count() }).ToArray();
-                string[] fileCompare = new string[prefixes.Length];
-                for (int i = 0; i < prefixes.Length; i++)
+                if (prefixes.Length >= 2)
                 {
-                    Console.WriteLine("Prefix: {0}, Count: {1}", prefixes[i].Prefix, prefixes[i].Count);
-                    long[] times = dir.GetFiles(string.Format("{0}*.txt", prefixes[i].Prefix)).Select(delegate (FileInfo f)
+                    string[] fileCompare = new string[prefixes.Length];
+                    for (int i = 0; i < prefixes.Length; i++)
                     {
-                        string t = (f.Name.Split('.')[0]).Split('_')[1];
-                        return long.Parse(t);
-                    }).ToArray();
-                    Array.Sort(times); //時間排序小到大
-                    /*
-                    foreach (long time in times)
-                        Console.WriteLine(time);
-                    Console.WriteLine("Max:" + times[times.Length - 1]);
-                    */
-                    fileCompare[i] = folder_path + string.Format(@"\{0}_{1}.txt", prefixes[i].Prefix, times[times.Length - 1]);
-                }
-                //讀取log
-                UniArr = new int[prefixes.Length][][];
-                for (int i = 0; i < fileCompare.Length; i++)
-                {
-                    UniArr[i] = new int[BLOCK_SIZE][];
-                    string[][] temp = new string[BLOCK_SIZE][];
-                    using (StreamReader sr = new StreamReader(fileCompare[i]))
-                    {
-                        for (int r = 0; r < BLOCK_SIZE; r++)
+                        //Console.WriteLine("Prefix: {0}, Count: {1}", prefixes[i].Prefix, prefixes[i].Count);
+                        long[] times = dir.GetFiles(string.Format("{0}*.txt", prefixes[i].Prefix)).Select(delegate (FileInfo f)
                         {
-                            temp[r] = sr.ReadLine().Split(',');
+                            string t = (f.Name.Split('.')[0]).Split('_')[1];
+                            return long.Parse(t);
+                        }).ToArray();
+                        Array.Sort(times); //時間排序小到大
+                        /*
+                        foreach (long time in times)
+                            Console.WriteLine(time);
+                        Console.WriteLine("Max:" + times[times.Length - 1]);
+                        */
+                        fileCompare[i] = folder_path + string.Format(@"\{0}_{1}.txt", prefixes[i].Prefix, times[times.Length - 1]);
+                    }
+                    //讀取log
+                    UniArr = new int[prefixes.Length][][];
+                    for (int i = 0; i < fileCompare.Length; i++)
+                    {
+                        UniArr[i] = new int[BLOCK_SIZE][];
+                        string[][] temp = new string[BLOCK_SIZE][];
+                        using (StreamReader sr = new StreamReader(fileCompare[i]))
+                        {
+                            for (int r = 0; r < BLOCK_SIZE; r++)
+                            {
+                                temp[r] = sr.ReadLine().Split(',');
+                            }
+                        }
+                        for (int j = 0; j < temp.Length; j++)
+                        {
+                            int[] intArray = Array.ConvertAll(temp[j], delegate (string s) { return int.Parse(s); });
+                            UniArr[i][j] = intArray;
                         }
                     }
-                    for (int j = 0; j < temp.Length; j++)
+                    //公式比較
+                    double total = 0;
+                    for (int i = 0; i < UniArr.Length - 1; i++)
                     {
-                        int[] intArray = Array.ConvertAll(temp[j], delegate (string s) { return int.Parse(s); });
-                        UniArr[i][j] = intArray;
+                        string num_1 = string.Join("", Array.ConvertAll(UniArr[i], delegate (int[] x) { return string.Join("", x); }));
+                        for (int j = i + 1; j < UniArr.Length; j++)
+                        {
+                            string num_2 = string.Join("", Array.ConvertAll(UniArr[j], delegate (int[] x) { return string.Join("", x); }));
+                            double ans = Math.Round(HammingDistance(num_1, num_2) / 4096.0, 4);
+                            total += ans;
+                        }
                     }
-                }
-                //公式比較
-                for (int i = 0; i < UniArr.Length; i++)
-                {
-                    for (int j = 0; j < UniArr[i].Length; j++)
-                    {
-                        Console.WriteLine(string.Join(",", UniArr[i][j]));
-                    }
-                    Console.WriteLine();
+                    double HD_inter = Math.Round(total * 2 / (UniArr.Length * (UniArr.Length - 1)), 4);
+                    labUni.Text = HD_inter * 100 + " %";
                 }
             }
         }
