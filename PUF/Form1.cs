@@ -36,6 +36,7 @@ namespace PUF
         private int[][] ADC_Bit = new int[BLOCK_SIZE][]; //電壓轉換bit結果
         private List<int[][]> ADC_Bit_List = new List<int[][]>();
         private Boolean UniCheck = false;
+        private int[][][] UniArr;
         //圖表變數
         private DataGridViewTextBoxColumn[] Col = new DataGridViewTextBoxColumn[64];
         private int[] zeroCount = new int[BLOCK_SIZE];
@@ -404,6 +405,7 @@ namespace PUF
         {
             if (UniCheck)
             {
+                //寫入log
                 string[] lines = new string[BLOCK_SIZE];
                 for (int i = 0; i < lines.Length; i++)
                 {
@@ -411,6 +413,54 @@ namespace PUF
                     lines[i] = str;
                 }
                 File.WriteAllLines(folder_path + string.Format(@"\{0}_{1}.txt", deviceName, DateTime.Now.ToString("yyyyMMddHHmmss")), lines);
+                //取最近一次log
+                DirectoryInfo dir = new DirectoryInfo(folder_path);
+                var prefixes = dir.GetFiles("COM*.txt").GroupBy(x => x.Name.Split('_')[0]).Select(y => new { Prefix = y.Key, Count = y.Count() }).ToArray();
+                string[] fileCompare = new string[prefixes.Length];
+                for (int i = 0; i < prefixes.Length; i++)
+                {
+                    Console.WriteLine("Prefix: {0}, Count: {1}", prefixes[i].Prefix, prefixes[i].Count);
+                    long[] times = dir.GetFiles(string.Format("{0}*.txt", prefixes[i].Prefix)).Select(delegate (FileInfo f)
+                    {
+                        string t = (f.Name.Split('.')[0]).Split('_')[1];
+                        return long.Parse(t);
+                    }).ToArray();
+                    Array.Sort(times); //時間排序小到大
+                    /*
+                    foreach (long time in times)
+                        Console.WriteLine(time);
+                    Console.WriteLine("Max:" + times[times.Length - 1]);
+                    */
+                    fileCompare[i] = folder_path + string.Format(@"\{0}_{1}.txt", prefixes[i].Prefix, times[times.Length - 1]);
+                }
+                //讀取log
+                UniArr = new int[prefixes.Length][][];
+                for (int i = 0; i < fileCompare.Length; i++)
+                {
+                    UniArr[i] = new int[BLOCK_SIZE][];
+                    string[][] temp = new string[BLOCK_SIZE][];
+                    using (StreamReader sr = new StreamReader(fileCompare[i]))
+                    {
+                        for (int r = 0; r < BLOCK_SIZE; r++)
+                        {
+                            temp[r] = sr.ReadLine().Split(',');
+                        }
+                    }
+                    for (int j = 0; j < temp.Length; j++)
+                    {
+                        int[] intArray = Array.ConvertAll(temp[j], delegate (string s) { return int.Parse(s); });
+                        UniArr[i][j] = intArray;
+                    }
+                }
+                //公式比較
+                for (int i = 0; i < UniArr.Length; i++)
+                {
+                    for (int j = 0; j < UniArr[i].Length; j++)
+                    {
+                        Console.WriteLine(string.Join(",", UniArr[i][j]));
+                    }
+                    Console.WriteLine();
+                }
             }
         }
         private void setRobustness()
