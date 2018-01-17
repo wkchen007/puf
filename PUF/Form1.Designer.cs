@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnCom = new System.Windows.Forms.Button();
             this.cbbCOM = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -101,7 +101,7 @@
             // btnCom
             // 
             this.btnCom.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnCom.Location = new System.Drawing.Point(240, 2);
+            this.btnCom.Location = new System.Drawing.Point(240, 202);
             this.btnCom.Name = "btnCom";
             this.btnCom.Size = new System.Drawing.Size(150, 30);
             this.btnCom.TabIndex = 0;
@@ -113,7 +113,7 @@
             // 
             this.cbbCOM.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbbCOM.FormattingEnabled = true;
-            this.cbbCOM.Location = new System.Drawing.Point(110, 2);
+            this.cbbCOM.Location = new System.Drawing.Point(110, 202);
             this.cbbCOM.Name = "cbbCOM";
             this.cbbCOM.Size = new System.Drawing.Size(120, 29);
             this.cbbCOM.TabIndex = 4;
@@ -123,7 +123,7 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(10, 40);
+            this.dataGridView1.Location = new System.Drawing.Point(10, 240);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 10;
@@ -134,7 +134,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(10, 5);
+            this.label1.Location = new System.Drawing.Point(10, 205);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 22);
             this.label1.TabIndex = 9;
@@ -143,7 +143,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(43)))), ((int)(((byte)(134)))));
-            this.label3.Location = new System.Drawing.Point(662, 210);
+            this.label3.Location = new System.Drawing.Point(662, 410);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 50);
             this.label3.TabIndex = 11;
@@ -151,7 +151,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(253)))), ((int)(((byte)(8)))));
-            this.label4.Location = new System.Drawing.Point(662, 270);
+            this.label4.Location = new System.Drawing.Point(662, 470);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 50);
             this.label4.TabIndex = 12;
@@ -159,7 +159,7 @@
             // labZero
             // 
             this.labZero.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labZero.Location = new System.Drawing.Point(712, 270);
+            this.labZero.Location = new System.Drawing.Point(712, 470);
             this.labZero.Name = "labZero";
             this.labZero.Size = new System.Drawing.Size(200, 54);
             this.labZero.TabIndex = 13;
@@ -169,7 +169,7 @@
             // labOne
             // 
             this.labOne.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labOne.Location = new System.Drawing.Point(712, 210);
+            this.labOne.Location = new System.Drawing.Point(712, 410);
             this.labOne.Name = "labOne";
             this.labOne.Size = new System.Drawing.Size(200, 56);
             this.labOne.TabIndex = 14;
@@ -180,7 +180,7 @@
             // 
             this.btnPUF.Enabled = false;
             this.btnPUF.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnPUF.Location = new System.Drawing.Point(730, 60);
+            this.btnPUF.Location = new System.Drawing.Point(730, 260);
             this.btnPUF.Name = "btnPUF";
             this.btnPUF.Size = new System.Drawing.Size(200, 60);
             this.btnPUF.TabIndex = 17;
@@ -190,9 +190,9 @@
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            this.chart1.Location = new System.Drawing.Point(350, 850);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Location = new System.Drawing.Point(350, 1050);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(1900, 300);
             this.chart1.TabIndex = 18;
@@ -200,9 +200,9 @@
             // 
             // chart2
             // 
-            chartArea6.Name = "ChartArea2";
-            this.chart2.ChartAreas.Add(chartArea6);
-            this.chart2.Location = new System.Drawing.Point(350, 1300);
+            chartArea2.Name = "ChartArea2";
+            this.chart2.ChartAreas.Add(chartArea2);
+            this.chart2.Location = new System.Drawing.Point(350, 1500);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1900, 300);
             this.chart2.TabIndex = 19;
@@ -210,9 +210,9 @@
             // 
             // chart3
             // 
-            chartArea7.Name = "ChartArea3";
-            this.chart3.ChartAreas.Add(chartArea7);
-            this.chart3.Location = new System.Drawing.Point(350, 1750);
+            chartArea3.Name = "ChartArea3";
+            this.chart3.ChartAreas.Add(chartArea3);
+            this.chart3.Location = new System.Drawing.Point(350, 1950);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(1900, 300);
             this.chart3.TabIndex = 20;
@@ -220,9 +220,9 @@
             // 
             // chart4
             // 
-            chartArea8.Name = "ChartArea4";
-            this.chart4.ChartAreas.Add(chartArea8);
-            this.chart4.Location = new System.Drawing.Point(350, 2200);
+            chartArea4.Name = "ChartArea4";
+            this.chart4.ChartAreas.Add(chartArea4);
+            this.chart4.Location = new System.Drawing.Point(350, 2400);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(1900, 300);
             this.chart4.TabIndex = 21;
@@ -231,7 +231,7 @@
             // txtRef_12
             // 
             this.txtRef_12.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_12.Location = new System.Drawing.Point(275, 800);
+            this.txtRef_12.Location = new System.Drawing.Point(275, 1000);
             this.txtRef_12.Name = "txtRef_12";
             this.txtRef_12.Size = new System.Drawing.Size(200, 46);
             this.txtRef_12.TabIndex = 22;
@@ -242,7 +242,7 @@
             this.refGridView1.AllowUserToAddRows = false;
             this.refGridView1.AllowUserToDeleteRows = false;
             this.refGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.refGridView1.Location = new System.Drawing.Point(10, 850);
+            this.refGridView1.Location = new System.Drawing.Point(10, 1050);
             this.refGridView1.Name = "refGridView1";
             this.refGridView1.ReadOnly = true;
             this.refGridView1.RowTemplate.Height = 10;
@@ -254,7 +254,7 @@
             this.refGridView2.AllowUserToAddRows = false;
             this.refGridView2.AllowUserToDeleteRows = false;
             this.refGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.refGridView2.Location = new System.Drawing.Point(10, 1300);
+            this.refGridView2.Location = new System.Drawing.Point(10, 1500);
             this.refGridView2.Name = "refGridView2";
             this.refGridView2.ReadOnly = true;
             this.refGridView2.RowTemplate.Height = 10;
@@ -266,7 +266,7 @@
             this.refGridView3.AllowUserToAddRows = false;
             this.refGridView3.AllowUserToDeleteRows = false;
             this.refGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.refGridView3.Location = new System.Drawing.Point(10, 1750);
+            this.refGridView3.Location = new System.Drawing.Point(10, 1950);
             this.refGridView3.Name = "refGridView3";
             this.refGridView3.ReadOnly = true;
             this.refGridView3.RowTemplate.Height = 10;
@@ -278,7 +278,7 @@
             this.refGridView4.AllowUserToAddRows = false;
             this.refGridView4.AllowUserToDeleteRows = false;
             this.refGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.refGridView4.Location = new System.Drawing.Point(10, 2200);
+            this.refGridView4.Location = new System.Drawing.Point(10, 2400);
             this.refGridView4.Name = "refGridView4";
             this.refGridView4.ReadOnly = true;
             this.refGridView4.RowTemplate.Height = 10;
@@ -288,7 +288,7 @@
             // txtRef_22
             // 
             this.txtRef_22.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_22.Location = new System.Drawing.Point(275, 1250);
+            this.txtRef_22.Location = new System.Drawing.Point(275, 1450);
             this.txtRef_22.Name = "txtRef_22";
             this.txtRef_22.Size = new System.Drawing.Size(200, 46);
             this.txtRef_22.TabIndex = 27;
@@ -297,7 +297,7 @@
             // txtRef_32
             // 
             this.txtRef_32.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_32.Location = new System.Drawing.Point(275, 1700);
+            this.txtRef_32.Location = new System.Drawing.Point(275, 1900);
             this.txtRef_32.Name = "txtRef_32";
             this.txtRef_32.Size = new System.Drawing.Size(200, 46);
             this.txtRef_32.TabIndex = 28;
@@ -306,7 +306,7 @@
             // txtRef_42
             // 
             this.txtRef_42.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_42.Location = new System.Drawing.Point(275, 2150);
+            this.txtRef_42.Location = new System.Drawing.Point(275, 2350);
             this.txtRef_42.Name = "txtRef_42";
             this.txtRef_42.Size = new System.Drawing.Size(200, 46);
             this.txtRef_42.TabIndex = 29;
@@ -315,7 +315,7 @@
             // txtRef_11
             // 
             this.txtRef_11.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_11.Location = new System.Drawing.Point(40, 800);
+            this.txtRef_11.Location = new System.Drawing.Point(40, 1000);
             this.txtRef_11.Name = "txtRef_11";
             this.txtRef_11.Size = new System.Drawing.Size(200, 46);
             this.txtRef_11.TabIndex = 30;
@@ -324,7 +324,7 @@
             // txtRef_13
             // 
             this.txtRef_13.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_13.Location = new System.Drawing.Point(515, 800);
+            this.txtRef_13.Location = new System.Drawing.Point(515, 1000);
             this.txtRef_13.Name = "txtRef_13";
             this.txtRef_13.Size = new System.Drawing.Size(200, 46);
             this.txtRef_13.TabIndex = 31;
@@ -333,7 +333,7 @@
             // txtRef_21
             // 
             this.txtRef_21.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_21.Location = new System.Drawing.Point(40, 1250);
+            this.txtRef_21.Location = new System.Drawing.Point(40, 1450);
             this.txtRef_21.Name = "txtRef_21";
             this.txtRef_21.Size = new System.Drawing.Size(200, 46);
             this.txtRef_21.TabIndex = 40;
@@ -342,7 +342,7 @@
             // txtRef_23
             // 
             this.txtRef_23.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_23.Location = new System.Drawing.Point(515, 1250);
+            this.txtRef_23.Location = new System.Drawing.Point(515, 1450);
             this.txtRef_23.Name = "txtRef_23";
             this.txtRef_23.Size = new System.Drawing.Size(200, 46);
             this.txtRef_23.TabIndex = 41;
@@ -351,7 +351,7 @@
             // txtRef_31
             // 
             this.txtRef_31.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_31.Location = new System.Drawing.Point(40, 1700);
+            this.txtRef_31.Location = new System.Drawing.Point(40, 1900);
             this.txtRef_31.Name = "txtRef_31";
             this.txtRef_31.Size = new System.Drawing.Size(200, 46);
             this.txtRef_31.TabIndex = 46;
@@ -360,7 +360,7 @@
             // txtRef_33
             // 
             this.txtRef_33.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_33.Location = new System.Drawing.Point(515, 1700);
+            this.txtRef_33.Location = new System.Drawing.Point(515, 1900);
             this.txtRef_33.Name = "txtRef_33";
             this.txtRef_33.Size = new System.Drawing.Size(200, 46);
             this.txtRef_33.TabIndex = 47;
@@ -369,7 +369,7 @@
             // txtRef_41
             // 
             this.txtRef_41.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_41.Location = new System.Drawing.Point(40, 2150);
+            this.txtRef_41.Location = new System.Drawing.Point(40, 2350);
             this.txtRef_41.Name = "txtRef_41";
             this.txtRef_41.Size = new System.Drawing.Size(200, 46);
             this.txtRef_41.TabIndex = 52;
@@ -378,7 +378,7 @@
             // txtRef_43
             // 
             this.txtRef_43.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRef_43.Location = new System.Drawing.Point(515, 2150);
+            this.txtRef_43.Location = new System.Drawing.Point(515, 2350);
             this.txtRef_43.Name = "txtRef_43";
             this.txtRef_43.Size = new System.Drawing.Size(200, 46);
             this.txtRef_43.TabIndex = 53;
@@ -387,7 +387,7 @@
             // btnRef_11
             // 
             this.btnRef_11.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_11.Location = new System.Drawing.Point(10, 780);
+            this.btnRef_11.Location = new System.Drawing.Point(10, 980);
             this.btnRef_11.Name = "btnRef_11";
             this.btnRef_11.Size = new System.Drawing.Size(25, 40);
             this.btnRef_11.TabIndex = 54;
@@ -400,7 +400,7 @@
             // btnRef_12
             // 
             this.btnRef_12.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_12.Location = new System.Drawing.Point(245, 780);
+            this.btnRef_12.Location = new System.Drawing.Point(245, 980);
             this.btnRef_12.Name = "btnRef_12";
             this.btnRef_12.Size = new System.Drawing.Size(25, 40);
             this.btnRef_12.TabIndex = 55;
@@ -413,7 +413,7 @@
             // btnRef_13
             // 
             this.btnRef_13.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_13.Location = new System.Drawing.Point(480, 780);
+            this.btnRef_13.Location = new System.Drawing.Point(480, 980);
             this.btnRef_13.Name = "btnRef_13";
             this.btnRef_13.Size = new System.Drawing.Size(25, 40);
             this.btnRef_13.TabIndex = 56;
@@ -426,7 +426,7 @@
             // btnRef_14
             // 
             this.btnRef_14.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_14.Location = new System.Drawing.Point(720, 780);
+            this.btnRef_14.Location = new System.Drawing.Point(720, 980);
             this.btnRef_14.Name = "btnRef_14";
             this.btnRef_14.Size = new System.Drawing.Size(25, 40);
             this.btnRef_14.TabIndex = 57;
@@ -439,7 +439,7 @@
             // btnRef_21
             // 
             this.btnRef_21.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_21.Location = new System.Drawing.Point(10, 1230);
+            this.btnRef_21.Location = new System.Drawing.Point(10, 1430);
             this.btnRef_21.Name = "btnRef_21";
             this.btnRef_21.Size = new System.Drawing.Size(25, 40);
             this.btnRef_21.TabIndex = 58;
@@ -452,7 +452,7 @@
             // btnRef_22
             // 
             this.btnRef_22.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_22.Location = new System.Drawing.Point(245, 1230);
+            this.btnRef_22.Location = new System.Drawing.Point(245, 1430);
             this.btnRef_22.Name = "btnRef_22";
             this.btnRef_22.Size = new System.Drawing.Size(25, 40);
             this.btnRef_22.TabIndex = 59;
@@ -465,7 +465,7 @@
             // btnRef_23
             // 
             this.btnRef_23.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_23.Location = new System.Drawing.Point(480, 1230);
+            this.btnRef_23.Location = new System.Drawing.Point(480, 1430);
             this.btnRef_23.Name = "btnRef_23";
             this.btnRef_23.Size = new System.Drawing.Size(25, 40);
             this.btnRef_23.TabIndex = 60;
@@ -478,7 +478,7 @@
             // btnRef_24
             // 
             this.btnRef_24.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_24.Location = new System.Drawing.Point(720, 1230);
+            this.btnRef_24.Location = new System.Drawing.Point(720, 1430);
             this.btnRef_24.Name = "btnRef_24";
             this.btnRef_24.Size = new System.Drawing.Size(25, 40);
             this.btnRef_24.TabIndex = 61;
@@ -491,7 +491,7 @@
             // btnRef_31
             // 
             this.btnRef_31.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_31.Location = new System.Drawing.Point(10, 1680);
+            this.btnRef_31.Location = new System.Drawing.Point(10, 1880);
             this.btnRef_31.Name = "btnRef_31";
             this.btnRef_31.Size = new System.Drawing.Size(25, 40);
             this.btnRef_31.TabIndex = 62;
@@ -504,7 +504,7 @@
             // btnRef_32
             // 
             this.btnRef_32.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_32.Location = new System.Drawing.Point(245, 1680);
+            this.btnRef_32.Location = new System.Drawing.Point(245, 1880);
             this.btnRef_32.Name = "btnRef_32";
             this.btnRef_32.Size = new System.Drawing.Size(25, 40);
             this.btnRef_32.TabIndex = 63;
@@ -517,7 +517,7 @@
             // btnRef_33
             // 
             this.btnRef_33.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_33.Location = new System.Drawing.Point(480, 1680);
+            this.btnRef_33.Location = new System.Drawing.Point(480, 1880);
             this.btnRef_33.Name = "btnRef_33";
             this.btnRef_33.Size = new System.Drawing.Size(25, 40);
             this.btnRef_33.TabIndex = 64;
@@ -530,7 +530,7 @@
             // btnRef_34
             // 
             this.btnRef_34.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_34.Location = new System.Drawing.Point(720, 1680);
+            this.btnRef_34.Location = new System.Drawing.Point(720, 1880);
             this.btnRef_34.Name = "btnRef_34";
             this.btnRef_34.Size = new System.Drawing.Size(25, 40);
             this.btnRef_34.TabIndex = 65;
@@ -543,7 +543,7 @@
             // btnRef_41
             // 
             this.btnRef_41.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_41.Location = new System.Drawing.Point(10, 2130);
+            this.btnRef_41.Location = new System.Drawing.Point(10, 2330);
             this.btnRef_41.Name = "btnRef_41";
             this.btnRef_41.Size = new System.Drawing.Size(25, 40);
             this.btnRef_41.TabIndex = 66;
@@ -556,7 +556,7 @@
             // btnRef_43
             // 
             this.btnRef_43.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_43.Location = new System.Drawing.Point(480, 2130);
+            this.btnRef_43.Location = new System.Drawing.Point(480, 2330);
             this.btnRef_43.Name = "btnRef_43";
             this.btnRef_43.Size = new System.Drawing.Size(25, 40);
             this.btnRef_43.TabIndex = 67;
@@ -569,7 +569,7 @@
             // btnRef_42
             // 
             this.btnRef_42.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_42.Location = new System.Drawing.Point(245, 2130);
+            this.btnRef_42.Location = new System.Drawing.Point(245, 2330);
             this.btnRef_42.Name = "btnRef_42";
             this.btnRef_42.Size = new System.Drawing.Size(25, 40);
             this.btnRef_42.TabIndex = 68;
@@ -582,7 +582,7 @@
             // btnRef_44
             // 
             this.btnRef_44.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRef_44.Location = new System.Drawing.Point(720, 2130);
+            this.btnRef_44.Location = new System.Drawing.Point(720, 2330);
             this.btnRef_44.Name = "btnRef_44";
             this.btnRef_44.Size = new System.Drawing.Size(25, 40);
             this.btnRef_44.TabIndex = 69;
@@ -596,7 +596,7 @@
             // 
             this.btnRead.Enabled = false;
             this.btnRead.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnRead.Location = new System.Drawing.Point(730, 60);
+            this.btnRead.Location = new System.Drawing.Point(730, 260);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(200, 60);
             this.btnRead.TabIndex = 70;
@@ -607,7 +607,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(730, 150);
+            this.label2.Location = new System.Drawing.Point(730, 350);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(200, 56);
             this.label2.TabIndex = 71;
@@ -618,7 +618,7 @@
             // 
             this.labUniOn.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labUniOn.ForeColor = System.Drawing.Color.Gray;
-            this.labUniOn.Location = new System.Drawing.Point(730, 330);
+            this.labUniOn.Location = new System.Drawing.Point(730, 530);
             this.labUniOn.Name = "labUniOn";
             this.labUniOn.Size = new System.Drawing.Size(200, 56);
             this.labUniOn.TabIndex = 72;
@@ -629,7 +629,7 @@
             // labRob
             // 
             this.labRob.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labRob.Location = new System.Drawing.Point(780, 540);
+            this.labRob.Location = new System.Drawing.Point(780, 740);
             this.labRob.Name = "labRob";
             this.labRob.Size = new System.Drawing.Size(200, 54);
             this.labRob.TabIndex = 73;
@@ -639,7 +639,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("PMingLiU", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(730, 480);
+            this.label6.Location = new System.Drawing.Point(730, 680);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(200, 56);
             this.label6.TabIndex = 74;
@@ -649,7 +649,7 @@
             // labUni
             // 
             this.labUni.Font = new System.Drawing.Font("PMingLiU", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labUni.Location = new System.Drawing.Point(780, 390);
+            this.labUni.Location = new System.Drawing.Point(780, 590);
             this.labUni.Name = "labUni";
             this.labUni.Size = new System.Drawing.Size(200, 54);
             this.labUni.TabIndex = 75;
@@ -660,7 +660,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(650, 390);
+            this.label5.Location = new System.Drawing.Point(650, 590);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 22);
             this.label5.TabIndex = 76;
@@ -670,7 +670,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(650, 540);
+            this.label7.Location = new System.Drawing.Point(650, 740);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 22);
             this.label7.TabIndex = 77;
@@ -680,7 +680,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(670, 420);
+            this.label8.Location = new System.Drawing.Point(670, 620);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 22);
             this.label8.TabIndex = 78;
@@ -690,7 +690,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("PMingLiU", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(670, 570);
+            this.label9.Location = new System.Drawing.Point(670, 770);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 22);
             this.label9.TabIndex = 79;
