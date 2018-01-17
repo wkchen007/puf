@@ -53,7 +53,7 @@ namespace PUF
         private int PUFReadComplete = 4105;
         //Read方法的變數
         private Boolean ExtReadCheck = false;
-        private int ExtReadComplete = 2055;
+        private int ExtReadComplete = 3000;
         //bit reference變數
         private int bitTh1 = 70, bitTh2 = 70, bitTh3 = 70;
         private DataGridView[] refGrids;
