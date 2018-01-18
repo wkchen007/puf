@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -58,6 +59,8 @@ namespace PUF
         private int bitTh1 = 53, bitTh2 = 53, bitTh3 = 53;
         private DataGridView[] refGrids;
         private int[][] refBitTh = new int[BLOCK_SIZE][];
+        //每隔10秒Read變數
+        private System.Timers.Timer aTimer = null;
         public Form1()
         {
             InitializeComponent();
@@ -216,6 +219,46 @@ namespace PUF
             zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
             oneCount[0] = 0; oneCount[1] = 0; oneCount[2] = 0; oneCount[3] = 0;
             serialPort1.Write("r");
+        }
+        private void labTimeRead_Click(object sender, EventArgs e)
+        {
+            if (aTimer == null)
+            {            
+                aTimer = new System.Timers.Timer();
+                aTimer.AutoReset = false;
+                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+                aTimer.Start();
+                labTimeRead.BackColor = Color.Black;
+                btnRead.Enabled = false;
+            }
+            else
+            {
+                aTimer.Stop();
+                aTimer = null;
+                labTimeRead.BackColor = Color.Gray;
+                btnRead.Enabled = true;
+            }
+        }
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            //this.Invoke((MethodInvoker)delegate () { btnTimeRead.Text = aCount + ""; });
+            ExternalRead.Clear();
+            ExtReadCheck = false;
+            for (int i = 0; i < ADC.Length; i++)
+            {
+                Array.Clear(ADC[i], 0, ADC[i].Length);
+                Array.Clear(ADC_Bit[i], 0, ADC_Bit[i].Length);
+                Array.Clear(chTotal[i], 0, chTotal[i].Length);
+                Array.Clear(yValues[i], 0, yValues[i].Length);
+            }
+            readCount = 0;
+            actionClick = "btnRead_Click";
+            zeroCount[0] = 0; zeroCount[1] = 0; zeroCount[2] = 0; zeroCount[3] = 0;
+            oneCount[0] = 0; oneCount[1] = 0; oneCount[2] = 0; oneCount[3] = 0;
+            serialPort1.Write("r");
+            aTimer.Stop();
+            aTimer.Interval = 10000; //10s
+            aTimer.Start();
         }
         private void bitParse()
         {
@@ -688,6 +731,7 @@ namespace PUF
             btn.Text = btn.Text == "1" ? "0" : "1";
             btnRef_2();
         }
+
         private void btnRef_2()
         {
             int i = 1;
